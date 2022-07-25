@@ -1,0 +1,24 @@
+{
+  "name": "votes_elemental_studio",
+  "version": "1.0.0",
+  "description": "sistema de votacion",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "abraham lillo",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "momment": "^0.0.1",
+    "mongoose": "^6.4.6",
+    "nodemon": "^2.0.19",
+    "nunjucks": "^3.2.3",
+    "pg": "^8.7.3"
+  }
+}

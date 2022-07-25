@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user.es_admin)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <div class="row p-5 ">
+        <form action="/nueva-votacion" method="post">
+            <div class="row ">
+                <h4 class="col mb-4">Nueva votacion</h4>
+
+                <div class="col mb-4">
+                    <h4>periodo</h4>
+                    <select name="periodo" id="periodo">
+                        <option value='disabled' disabled>seleccione periodo</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <p>seleccionar tipo de proyecto</p>
+                <select class='selects' name="tipoProyecto">
+                    <option value="selec m-2" disabled>seleccionar tipo</option>
+                    <option value="sectorial">sectorial</option>
+                    <option value="comunal">comunal</option>
+                    <option value="infantil">infantil</option>
+                    <option value="juvenil">juvenil</option>
+                </select>
+            </div>
+            <div id="proyectosSectoriales" class="m-2">
+
+
+            </div>
+            <input type="button" value='agregar proyecto' onClick="agregar();" class="btn btn-success mt-2"></input>
+
+
+
+    </div>
+    <button class="btn btn-primary rounded-bottom" type="submit">Agregar Votación</button>
+    </form>
+
+</div>
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    let count = 1;
+    function agregar() {
+        let o = document.createElement("input");
+        o.type = "text";
+        o.name = 'proyecto' + count;
+        o.value = '';
+        o.class = 'm-2'
+        document.getElementById('proyectosSectoriales').appendChild(o)
+        count++;
+    }
+
+
+</script>
+{% endblock %}

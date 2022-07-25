@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user.es_admin)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <div class="row p-5 ">
+        <div class="row ">
+            <h4 class="col mb-4">cierre de votaciones</h4>
+
+            <h4 class="col mb-4">{{'n° de mesa: '+mesa.numero_mesa}}</h4>
+            <h4 class="col mb-4">{{'sede: '+mesa.sede}}</h4>
+
+        </div>
+        <p>para efectuar el cierre de la mesa de votaciones por favor rellenar la sieguiente informaion:</p>
+        <form action={{"/cerrar-mesa/"+mesa.numero_mesa}} method="post">
+            <div class="row">
+                <h6 CLASS="col">PROYECTOS SECTORIALES</h6>
+                <h6 class="col">CANTIDAD DE VOTOS</h6>
+            </div>
+            {%for sectorial in sectoriales%}
+            <div class="input-group mb-3">
+                <span class="input-group-text">PS{{sectorial.name_option}}</span>
+                <input type="number" name={{'count_votes'+sectorial.name_option}} class="form-control">
+                <input type="text" name={{'id_option'+sectorial.name_option}} hidden value={{sectorial.id}}>
+            </div>
+            {%endfor%}
+
+            {# ------- #}
+            <div class="row">
+                <h6 CLASS="col">PROYECTOS COMUNALES</h6>
+                <h6 class="col">CANTIDAD DE VOTOS</h6>
+            </div>
+            {%for comunal in comunales%}
+            <div class="input-group mb-3">
+                <span class="input-group-text">PC{{comunal.name_option}}</span>
+                <input type="number" name={{'count_votes'+comunal.name_option}} class="form-control">
+                <input type="text" name={{'id_option'+comunal.name_option}} hidden value={{comunal.id}}>
+            </div>
+            {%endfor%}
+
+
+            {# ------ #}
+            <div class="row">
+                <h6 CLASS="col">PROYECTOS INFANTILES</h6>
+                <h6 class="col">CANTIDAD DE VOTOS</h6>
+            </div>
+            {%for infantil in infantiles%}
+            <div class="input-group mb-3">
+                <span class="input-group-text">PI{{infantil.name_option}}</span>
+                <input type="number" name={{'count_votes'+infantil.name_option}} class="form-control">
+                <input type="text" name={{'id_option'+infantil.name_option}} hidden value={{infantil.id}}>
+            </div>
+            {%endfor%}
+
+
+            {# ----- #}
+            <div class="row">
+                <h6 CLASS="col">PROYECTOS JUVENILES</h6>
+                <h6 class="col">CANTIDAD DE VOTOS</h6>
+            </div>
+            {%for juvenil in juveniles%}
+            <div class="input-group mb-3">
+                <span class="input-group-text">PJ{{juvenil.name_option}}</span>
+                <input type="number" name={{'count_votes'+juvenil.name_option}} class="form-control">
+                <input type="text" name={{'id_option'+juvenil.name_option}} hidden value={{juvenil.id}}>
+            </div>
+            {%endfor%}
+
+
+            <button class="btn btn-primary rounded-bottom" type="submit">Registrar Votación</button>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

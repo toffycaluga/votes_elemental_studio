@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user.es_admin)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <div class="row p-5 text-center ">
+        {%if mesa%}
+        <div class="row ">
+            <h4 class="col">{{'Encargado de mesa : '+mesa.encargado}}</h4>
+            <h4 class="col">{{'mesa : '+mesa.numero_mesa}}</h4>
+            <h4 class="col">{{'sede : '+mesa.sede}}</h4>
+        </div>
+        {%endif%}
+        {%if mesa.estado_mesa==false%}
+        <a disabled class="btn btn-light m-2"> mesa cerrada</a>
+
+        {%elif mesa%}
+        <a href="/registrar-voto" class="btn btn-primary">registrar voto</a>
+        <a href="/cerrar-mesa" class="btn btn-danger m-2">cerrar mesa de votaciónes</a>
+        {%else%}
+        <a href="/abrir-mesa" class="btn btn-success m-2">abrir mesa de votaciónes</a>
+        {%endif %}
+        <a href="/editar-mesa" class="btn btn-warning m-2">editar mesa de votaciónes</a>
+        <a href="/ver-resultados" class="btn btn-primary m-2">ver resultados de votaciónes</a>
+    </div>
+
+</div>
+
+
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

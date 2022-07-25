@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' )}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <div class="row p-5 ">
+        <div class="row ">
+            <h4 class="col mb-4">{{'mesa numero :'+mesa.numero_mesa}}</h4>
+
+            <h4 class="col mb-4">{{'sede:'+mesa.sede}}</h4>
+
+        </div>
+        <form action={{"/registrar-voto/"+mesa.sede+'/'+mesa.numero_mesa}} method="post">
+            <span>seleccione periodo de votacion</span>
+            <select class name="periodo">
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+            </select>
+            <div class="mb-3 mt-3">
+                <label for="rut" class="form-label">Rut contribuyente:</label>
+                <input type="text" class="form-control" id="rut" placeholder="Ejemplo :12.345.678-9" name="rut">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="name" class="form-label">Nombre contribuyente:</label>
+                <input type="text" class="form-control" id="name" placeholder="Ejemplo :juan perez" name="name">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="rut" class="form-label">Dirección/Calle/Pasaje:</label>
+                <input type="text" class="form-control" id="adress" placeholder="Ejemplo :calle sin nombre 0000"
+                    name="adress">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="rut" class="form-label align-items-start">Edad:</label>
+                <input type="number" class="form-control" id="edad" placeholder="Ejemplo :30" name="edad">
+            </div>
+            <button class="btn btn-primary rounded-bottom" type="submit">Registrar Votación</button>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

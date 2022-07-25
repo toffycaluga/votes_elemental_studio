@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user.es_admin)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <div class="row p-5 ">
+        <div class="row ">
+            <h4 class="col mb-4">cierre de votaciones</h4>
+
+            <h4 class="col mb-4">Total final votaciones</h4>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <h6 CLASS="col">PROYECTOS SECTORIALES</h6>
+
+                </div>
+                {%for sectorial in sectoriales%}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">PS{{sectorial.name_option}}</span>
+                    <span class="input-group-text">{{sectorial.cant_votes}} votos</span>
+                </div>
+                {%endfor%}
+            </div>
+
+            {# ------- #}
+            <div class="col">
+
+                <div class="row">
+                    <h6 CLASS="col">PROYECTOS COMUNALES</h6>
+
+                </div>
+                {%for comunal in comunales%}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">PC{{comunal.name_option}}</span>
+                    <span class="input-group-text">{{comunal.cant_votes}} votos</span>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                {# ------ #}
+                <div class="row">
+                    <h6 CLASS="col">PROYECTOS INFANTILES</h6>
+
+                </div>
+                {%for infantil in infantiles%}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">PI{{infantil.name_option}}</span>
+                    <span class="input-group-text">{{infantil.cant_votes}} votos</span>
+                </div>
+                {%endfor%}
+
+
+            </div>
+            {# ----- #}
+            <div class="col ">
+
+                <div class="row">
+                    <h6 CLASS="col">PROYECTOS JUVENILES</h6>
+
+                </div>
+                {%for juvenil in juveniles%}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">PJ{{juvenil.name_option}}</span>
+                    <span class="input-group-text">{{juvenil.cant_votes}} votos</span>
+                </div>
+                {%endfor%}
+
+
+
+
+            </div>
+        </div>
+        <a href="/" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

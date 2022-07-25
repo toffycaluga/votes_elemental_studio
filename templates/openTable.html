@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user.es_admin)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container m-5 ">
+    <form action="/abrir-mesa" method="post">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Encargado de mesa</span>
+            <input type="text" name='encargado' class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">numero de mesa </span>
+            <input type="text" name='numero_mesa' class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">sede </span>
+            <input type="text" name='sede' class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">registrar</button>
+    </form>
+
+
+</div>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
