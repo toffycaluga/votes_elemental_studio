@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcrypt'
-import { get_user, create_user } from '../db.js'
+import { get_user, create_user, get_funcionarios } from '../db.js'
 
 const router = express.Router()
 
@@ -13,22 +13,39 @@ router.post('/login', async (req, res) => {
     // 0. Recuperamos los campos del formulario
     const email = req.body.email
     const password = req.body.password
-
+    const opcion = req.body.optradio;
     // 1. Revisamos si efectivamente existe el usuario
-    const user_encontrado = await get_user(email)
-    if (!user_encontrado) {
-        req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
-        return res.redirect('/login')
-    }
-    //  2. Revisamos que las contraseñas coincidan
-    const son_iguales = await bcrypt.compare(password, user_encontrado.password)
-    if (!son_iguales) {
-        req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
-        return res.redirect('/login')
+    if (opcion == 'funcionario') {
+        const user_encontrado = await get_funcionarios(email)
+        if (!user_encontrado) {
+            req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
+            return res.redirect('/login')
+        }
+        //  2. Revisamos que las contraseñas coincidan
+        const son_iguales = await bcrypt.compare(password, user_encontrado.password)
+        if (!son_iguales) {
+            req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
+            return res.redirect('/login')
+        }
+        req.session.user = user_encontrado
+    } else if (opcion == 'admin') {
+
+        const user_encontrado = await get_user(email)
+        if (!user_encontrado) {
+            req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
+            return res.redirect('/login')
+        }
+        //  2. Revisamos que las contraseñas coincidan
+        const son_iguales = await bcrypt.compare(password, user_encontrado.password)
+        if (!son_iguales) {
+            req.flash('errors', 'Usuario inexistente o contraseña incorrecta')
+            return res.redirect('/login')
+        }
+        req.session.user = user_encontrado
     }
 
     // 4. Guardamos al usuario en sesion
-    req.session.user = user_encontrado
+
 
     // 3. Redirigir al usuario al Home
     res.redirect('/')

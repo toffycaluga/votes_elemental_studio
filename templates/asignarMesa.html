@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container bg-secondary bg-opacity-50 rounded">
+    <div class="row p-5 ">
+        <h3>Asignar mesa</h3>
+        <form action="/asignar-mesa" method="post">
+            <select class="form-select mb-2" aria-label="Default select example" name="periodo">
+                <option selected>selecciona periodo de votacion</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+            <select class="form-select mb-2" aria-label="Default select example" name="name_id">
+                <option selected>selecciona funcionario</option>
+                {%for funcionario in funcionarios%}
+                <option value={{funcionario.id}}>{{funcionario.name+'/'+funcionario.functions}}</option>
+                {%endfor%}
+            </select>
+
+            <select class="form-select mb-2" aria-label="Default select example" name="sede_id">
+                <option selected>selecciona sede</option>
+                {%for sede in sedes%}
+                <option value={{sede.id}}>{{sede.name}}</option>
+                {%endfor%}
+            </select>
+
+
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">numero de mesa</span>
+                <input type="text" class="form-control" placeholder="Example:juan perez" aria-label="Username"
+                    aria-describedby="addon-wrapping" name="tablename">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">asignar</button>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

@@ -1,28 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-<main class="form-signin mt-5 row">
-    <form class="col-4 offset-4" method="post" action="/login">
-        <h1 class="h3 mb-3 fw-normal">Ingrese a la Plataforma</h1>
+<main class="form-signin mt-5 row ">
+  <form class="col-4 offset-4 bg-black bg-opacity-10 p-2 rounded" method="post" action="/login">
+    <h1 class="h3 mb-3 fw-normal">Ingrese a la Plataforma</h1>
+    {# radios #}
+    <div class="row m-2">
 
-        <div class="form-floating">
-            <input name="email" required type="email" class="form-control" placeholder="name@example.com">
-            <label for="floatingInput">Email</label>
-        </div>
-        <div class="form-floating">
-            <input name="password" required type="password" class="form-control" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-        </div>
-        <!--
+      <div class="form-check col">
+        <input type="radio" class="form-check-input" id="radio2" name="optradio" value="funcionario" checked>funcionario
+        <label class="form-check-label" for="radio2"></label>
+      </div>
+      <div class="form-check col ">
+        <input type="radio" class="form-check-input" id="radio1" name="optradio" value="admin">Admin
+        <label class="form-check-label" for="radio1"></label>
+      </div>
+    </div>
+
+    <div class="form-floating">
+      <input name="email" required type="text" class="form-control" placeholder="name@example.com">
+      <label for="floatingInput">Email o username</label>
+    </div>
+    <div class="form-floating">
+      <input name="password" required type="password" class="form-control" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <!--
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
       -->
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-        <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
-        <a href="/register"> Registrarse</a>
-    </form>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+    <a href="/register"> Registrarse</a>
+  </form>
 </main>
 {% endblock %}

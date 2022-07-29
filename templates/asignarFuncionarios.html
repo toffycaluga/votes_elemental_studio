@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container bg-secondary bg-opacity-50 rounded">
+    <div class="row p-5 ">
+        <h3>Asignar Funcionario</h3>
+        <form action="/asignar-funcionario" method="post">
+
+            <select class="form-select mb-2" aria-label="Default select example" name="periodo">
+                <option selected>selecciona periodo de votacion</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">nombre</span>
+                <input type="text" class="form-control" placeholder="Example:juan perez" aria-label="Username"
+                    aria-describedby="addon-wrapping" name="name">
+            </div>
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">nombre de usuario</span>
+                <input type="text" class="form-control" placeholder="Example:juan perez" aria-label="Username"
+                    aria-describedby="addon-wrapping" name="username">
+            </div>
+
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">contraseña</span>
+                <input type="" class="form-control" aria-label="Username" aria-describedby="addon-wrapping"
+                    name="password" placeholder="Password">
+            </div>
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">confirme contraseña</span>
+                <input type="" class="form-control" aria-label="Username" aria-describedby="addon-wrapping"
+                    name="password_confirm" placeholder="Password">
+            </div>
+            <div class="input-group flex-nowrap mb-2">
+                <span class="input-group-text" id="addon-wrapping">funcion</span>
+                <select class="form-select mb-2" aria-label="Default select example" name="funcion">
+                    <option selected>selecciona periodo de votacion</option>
+                    <option value="ministro">ministro de fe</option>
+                    <option value="digitador">digitador</option>
+                    <option value="encargado">encargado de local</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">asignar</button>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

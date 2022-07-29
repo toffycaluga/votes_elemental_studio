@@ -1,4 +1,4 @@
-{% macro navbar (active) %}
+{% macro navbar (active,user) %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">home</a>
@@ -11,16 +11,27 @@
                 <li class="nav-item">
                     <a class="nav-link {% if active == '/' %}active{% endif %}" aria-current="page" href="/">Home</a>
                 </li>
+                {%if user.es_admin==true %}
                 <li class="nav-item">
-                    {%if user.es_admin==true %}
                     <a class="nav-link  " href="/nueva-votacion/">Nueva
                         Votacion</a>
-                    {%endif%}
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="/asignar-funcionario">asignar funcionario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href='/asignar-mesa'>asignar mesa</a>
+                </li>
+
+                {%endif%}
 
             </ul>
             <div class="d-flex">
+                {% if user %}
                 <a href="/logout" class="btn btn-outline-success" type="submit">Logout</a>
+                {%else%}
+                <a href="/login" class="btn btn-outline-success" type="submit">Login</a>
+                {%endif%}
             </div>
         </div>
     </div>

@@ -40,10 +40,20 @@ app.use(function (req, res, next) {
     console.log(req.session.mesa);
     next();
 })
+app.use(function (req, res, next) {
+    res.locals.sedes = ["los copihues", "aguas claras", "el mirador", "cordillera", "los pinguinos", "isla negra", "los olivos", "tralcamahuida", "maipumar", "gimnasio municipal", "padre alvear", "escuela el totoral", "las marinas"]
+    next()
+})
 
 // RUTAS
 app.use(auth)
 app.use(router)
 
+
+
+
 const PORT = 3000
 app.listen(PORT, () => console.log(`Servidor escuchando en el puerto ${PORT}`))
+
+
+

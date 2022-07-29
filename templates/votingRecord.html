@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import navbar %}
 {% block navbar %}
-{{ navbar('/' )}}
+{{ navbar('/',user )}}
 {% endblock %}
 
 {% block main %}
@@ -14,9 +14,9 @@
             <h4 class="col mb-4">{{'sede:'+mesa.sede}}</h4>
 
         </div>
-        <form action={{"/registrar-voto/"+mesa.sede+'/'+mesa.numero_mesa}} method="post">
+        <form action={{"/registrar-voto/"+user.sede_id+'/'+mesa.numero_mesa}} method="post">
             <span>seleccione periodo de votacion</span>
-            <select class name="periodo">
+            <select required class="form-select" name="periodo">
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
@@ -26,20 +26,22 @@
             </select>
             <div class="mb-3 mt-3">
                 <label for="rut" class="form-label">Rut contribuyente:</label>
-                <input type="text" class="form-control" id="rut" placeholder="Ejemplo :12.345.678-9" name="rut">
+                <input type="text" required class="form-control" id="rut" placeholder="Ejemplo :12.345.678-9"
+                    name="rut">
             </div>
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Nombre contribuyente:</label>
-                <input type="text" class="form-control" id="name" placeholder="Ejemplo :juan perez" name="name">
+                <input required type="text" class="form-control" id="name" placeholder="Ejemplo :juan perez"
+                    name="name">
             </div>
             <div class="mb-3 mt-3">
                 <label for="rut" class="form-label">Dirección/Calle/Pasaje:</label>
-                <input type="text" class="form-control" id="adress" placeholder="Ejemplo :calle sin nombre 0000"
-                    name="adress">
+                <input type="text" required class="form-control" id="adress"
+                    placeholder="Ejemplo :calle sin nombre 0000" name="adress">
             </div>
             <div class="mb-3 mt-3">
-                <label for="rut" class="form-label align-items-start">Edad:</label>
-                <input type="number" class="form-control" id="edad" placeholder="Ejemplo :30" name="edad">
+                <label for="rut" class="form-label align-items-start">fecha de nacimiento</label>
+                <input required type="date" class="form-control" id="edad" placeholder="Ejemplo :30" name="edad">
             </div>
             <button class="btn btn-primary rounded-bottom" type="submit">Registrar Votación</button>
         </form>

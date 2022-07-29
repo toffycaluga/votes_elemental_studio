@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import navbar %}
 {% block navbar %}
-{{ navbar('/' ,user.es_admin)}}
+{{ navbar('/' ,user)}}
 {% endblock %}
 
 {% block main %}
@@ -14,34 +14,40 @@
 
                 <div class="col mb-4">
                     <h4>periodo</h4>
-                    <select name="periodo" id="periodo">
-                        <option value='disabled' disabled>seleccione periodo</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                        <option value="2028">2028</option>
+                    <select name="periodo" id="periodo" required>
+                        <option selected>seleccione periodo</option>
+                        <option value=2022>2022</option>
+                        <option value=2023>2023</option>
+                        <option value=2024>2024</option>
+                        <option value=2025>2025</option>
+                        <option value=2026>2026</option>
+                        <option value=2027>2027</option>
+                        <option value=2028>2028</option>
                     </select>
                 </div>
             </div>
 
             <div class="row">
                 <p>seleccionar tipo de proyecto</p>
-                <select class='selects' name="tipoProyecto">
-                    <option value="selec m-2" disabled>seleccionar tipo</option>
-                    <option value="sectorial">sectorial</option>
-                    <option value="comunal">comunal</option>
-                    <option value="infantil">infantil</option>
-                    <option value="juvenil">juvenil</option>
+                <select class='selects' name="tipoProyecto" required>
+                    <option value="selec m-2" selected>seleccionar tipo</option>
+                    {%for project_type in project_types%}
+                    <option value={{project_type.id}}>{{project_type.name}}</option>
+                    {%endfor%}
                 </select>
             </div>
-            <div id="proyectosSectoriales" class="m-2">
-
-
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">sector de proyecto</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='sector' placeholder="sector"
+                    required>
             </div>
-            <input type="button" value='agregar proyecto' onClick="agregar();" class="btn btn-success mt-2"></input>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">nombre de proyecto</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" required name='name'
+                    placeholder="name@example.com">
+            </div>
+
+
 
 
 
@@ -62,6 +68,7 @@
         o.name = 'proyecto' + count;
         o.value = '';
         o.class = 'm-2'
+
         document.getElementById('proyectosSectoriales').appendChild(o)
         count++;
     }
