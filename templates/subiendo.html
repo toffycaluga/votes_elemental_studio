@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+{{ navbar('/' ,user)}}
+{% endblock %}
+
+{% block main %}
+
+<div class="container ">
+    <h4>Espere 5 segundos mientras se suben datos</h4>
+</div>
+
+
+{% endblock %}
+{% block script %}
+
+{% endblock script %}

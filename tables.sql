@@ -17,7 +17,7 @@ create table sedes(
 create table mesas(
     id serial primary key ,
     name varchar(255) not null,
-    estado_mesa boolean default true,
+    estado_mesa boolean default null,
     sede_id integer not null,
     foreign key (sede_id) references sedes(id)
 );
@@ -29,7 +29,7 @@ create table project_type(
 );
 
 create table project_options(
-    id serial primary key ,
+    id varchar(255) primary key ,
     name varchar(255) not null,
     sector varchar(255) not null,
     project_type_id integer not null,
@@ -43,7 +43,7 @@ create table option_counters (
     sede_id integer not null,
     mesa_id varchar(255) not null,
     cant_votes integer not null,
-    project_option_id integer not null,
+    project_option_id varchar(255) not null,
     foreign key (project_option_id) references project_options(id),
     foreign key (sede_id) references sedes(id)
 );

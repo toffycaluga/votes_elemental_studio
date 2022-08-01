@@ -11,12 +11,12 @@
         <div class="row ">
             <h4 class="col mb-4">cierre de votaciones</h4>
 
-            <h4 class="col mb-4">{{'n° de mesa: '+mesa.numero_mesa}}</h4>
+            <h4 class="col mb-4">{{'n° de mesa: '+mesa.name}}</h4>
             <h4 class="col mb-4">{{'sede: '+mesa.sede}}</h4>
 
         </div>
         <p>para efectuar el cierre de la mesa de votaciones por favor rellenar la sieguiente informaion:</p>
-        <form action={{"/cerrar-mesa/"+mesa.numero_mesa}} method="post">
+        <form action={{"/cerrar-mesa/"+mesa.name}} method="post">
             <div class="rounded bg-danger bg-opacity-50 container p-2">
 
                 <div class="row">
@@ -25,7 +25,7 @@
                 </div>
                 {%for sectorial in sectoriales%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">PS{{sectorial.id+' : '+sectorial.name}}</span>
+                    <span class="input-group-text">{{sectorial.id+' : '+sectorial.name}}</span>
                     <span class="input-group-text">sector {{sectorial.sector}}</span>
                     <input type="number" name={{'count_votes'+sectorial.id}} class="form-control">
                     <input type="text" name={{'id_option'+sectorial.id}} hidden value={{sectorial.id}}>
@@ -42,7 +42,7 @@
                 </div>
                 {%for comunal in comunales%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">{{comunal.name}}</span>
+                    <span class="input-group-text">{{comunal.id+' : '+comunal.name}}</span>
                     <span class="input-group-text">sector {{comunal.sector}}</span>
                     <input type="number" name={{'count_votes'+comunal.id}} class="form-control">
                     <input type="text" name={{'id_option'+comunal.id}} hidden value={{comunal.id}}>
@@ -60,7 +60,7 @@
                 </div>
                 {%for infantil in infantiles%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">{{infantil.name}}</span>
+                    <span class="input-group-text">{{infantil.id+' : '+infantil.name}}</span>
                     <span class="input-group-text">sector {{infantil.sector}}</span>
                     <input type="number" name={{'count_votes'+infantil.id}} class="form-control">
                     <input type="text" name={{'id_option'+infantil.id}} hidden value={{infantil.id}}>
@@ -77,7 +77,7 @@
                 </div>
                 {%for juvenil in juveniles%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">{{juvenil.name_option}}</span>
+                    <span class="input-group-text">{{juvenil.id+' : '+juvenil.name}}</span>
                     <span class="input-group-text">sector {{juvenil.sector}}</span>
                     <input type="number" name={{'count_votes'+juvenil.id}} class="form-control">
                     <input type="text" name={{'id_option'+juvenil.id}} hidden value={{juvenil.id}}>

@@ -9,12 +9,12 @@
 <div class="container ">
     <div class="row p-5 ">
         <div class="row ">
-            <h4 class="col mb-4">{{'mesa numero :'+mesa.numero_mesa}}</h4>
+            <h4 class="col mb-4">{{'mesa numero :'+mesa.name}}</h4>
 
             <h4 class="col mb-4">{{'sede:'+mesa.sede}}</h4>
 
         </div>
-        <form action={{"/registrar-voto/"+user.sede_id+'/'+mesa.numero_mesa}} method="post">
+        <form action={{"/registrar-voto/"+user.sede_id+'/'+mesa.name}} method="post">
             <span>seleccione periodo de votacion</span>
             <select required class="form-select" name="periodo">
                 <option value="2022">2022</option>

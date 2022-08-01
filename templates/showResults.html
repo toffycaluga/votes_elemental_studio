@@ -22,7 +22,7 @@
                 </div>
                 {%for sectorial in sectoriales%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">PS{{sectorial.name}}</span>
+                    <span class="input-group-text">{{sectorial.id+' : '+sectorial.name}}</span>
                     <span class="input-group-text">{{sectorial.cant_votes}} votos</span>
                 </div>
                 {%endfor%}
@@ -37,7 +37,7 @@
                 </div>
                 {%for comunal in comunales%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">PC {{comunal.name}}</span>
+                    <span class="input-group-text">{{comunal.id+' : '+comunal.name}}</span>
                     <span class="input-group-text">{{comunal.cant_votes}} votos</span>
                 </div>
                 {%endfor%}
@@ -54,7 +54,7 @@
                 </div>
                 {%for infantil in infantiles%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">PI{{infantil.name}}</span>
+                    <span class="input-group-text">{{infantil.id+' : '+infantil.name}}</span>
                     <span class="input-group-text">{{infantil.cant_votes}} votos</span>
                 </div>
                 {%endfor%}
@@ -70,7 +70,7 @@
                 </div>
                 {%for juvenil in juveniles%}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">PJ{{juvenil.name}}</span>
+                    <span class="input-group-text">{{juevenil.id+' : '+juvenil.name}}</span>
                     <span class="input-group-text">{{juvenil.cant_votes}} votos</span>
                 </div>
                 {%endfor%}

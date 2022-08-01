@@ -12,21 +12,25 @@
         <div class="row ">
             <h4 class="col">{{user.functions+' : '+user.name}}</h4>
             <h4 class="col">{{'mesa : '+user.mesa}}</h4>
-            <h4 class="col">{{'sede : '+user.sede_id}}</h4>
+            <h4 class="col">{{'sede : '+mesa.sede}}</h4>
         </div>
         {%endif%}
-        {%if mesa.estado_mesa==true and (user.functions=='digitador' or user.functions=='encargado')%}
+        {%if mesa.estado_mesa==true and (user.functions=='Digitador' or user.functions=='Encargado de Local')%}
+        <h3>Mesa abierta</h3>
         <a href="/registrar-voto" class="btn btn-primary m-2">registrar voto</a>
         {%endif%}
-        {%if mesa.estado_mesa==false and user.functions=='encargado'%}
+        {%if mesa.estado_mesa==false and user.functions=='Encargado de Local'%}
         <a disabled class="btn btn-light m-2"> mesa cerrada</a>
         <a href={{"/editar-mesa/"+user.mesa+'/'+user.sede_id}} class="btn btn-warning m-2">editar mesa de votaciónes</a>
-        {%elif mesa and (user.functions =='encargado') %}
+        {%elif mesa.estado_mesa==true and (user.functions =='Encargado de Local') %}
         <a href="/cerrar-mesa" class="btn btn-danger m-2">cerrar mesa de votaciónes</a>
 
-        {%elif user.functions=='encargado'%}
+        {%elif user.functions=='Encargado de Local' and mesa.estado_mesa==null%}
         <a href="/abrir-mesa" class="btn btn-success m-2">abrir mesa de votaciónes</a>
         {%endif %}
+        {%if user.functions=='Digitador' and mesa.estado_mesa==null%}
+        <h3>Encargado de mesa aun no abre mesa actual</h3>
+        {%endif%}
         <a href="/ver-resultados" class="btn btn-primary m-2">ver resultados de votaciónes</a>
     </div>
 

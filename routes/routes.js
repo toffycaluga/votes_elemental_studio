@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs/promises';
-import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_optios, create_voting_user, get_funcionarios, get_project_type, get_sedes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario } from "../db.js";
+import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_funcionarios, get_project_type, get_sedes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas } from "../db.js";
 import bcrypt from 'bcrypt'
 
 
@@ -18,11 +18,7 @@ function protected_route(req, res, next) {
 // RUTAS
 router.get('/', async (req, res) => {
 
-    // const sedes = ["los copihues", "aguas claras", "el mirador", "cordillera", "los pinguinos", "isla negra", "los olivos", "tralcamahuida", "maipumar", "gimnasio municipal", "padre alvear", "escuela el totoral", "las marinas"]
-    // for (let i = 0; i < sedes.length; i++) {
-    //     await create_sede(sedes[i]);
 
-    // }
 
     const mensajes = req.flash('mensaje')
     const errors = req.flash('errors')
@@ -44,7 +40,7 @@ router.get('/registrar-voto', protected_route, async (req, res) => {
 router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, res) => {
     console.log(req.body);
     console.log(req.params);
-    const sede_id = req.body.sede
+    const sede_id = req.params.sede
 
     // console.log(sede);
 
@@ -60,7 +56,7 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
 
         const sede = await get_sedes(usuario_existente.sede_id);
         if (usuario_existente.periodo == periodo) {
-            req.flash('errors', 'usuario rut:' + rut + 'ya hizo proceso de votacion en sede: ' + sede.name)
+            req.flash('errors', 'usuario rut :' + rut + ' ya hizo proceso de votacion en sede : ' + sede.name)
             res.redirect('/registrar-voto')
         } else {
             await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa);
@@ -68,7 +64,7 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
             res.redirect('/')
         }
     } else {
-        await create_voting_user(rut, name, adress, edad, sede, periodo, numero_mesa);
+        await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa);
         req.flash('mensaje', 'usuario registrado correctamente')
         res.redirect('/')
     }
@@ -84,7 +80,7 @@ router.post('/cerrar-mesa/:mesa_id', protected_route, async (req, res) => {
         create_vote_count(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
     }
 
-
+    await update_mesas(sede, false)
     req.session.mesa.estado_mesa = false;
     res.redirect('/')
 })
@@ -121,7 +117,7 @@ router.post('/nueva-votacion', protected_route, async (req, res) => {
 
 
 
-    await create_voting_optios(dataProject);
+    await create_voting_options(dataProject);
 
     req.flash('mensaje', `item agregado con exito`)
     // req.flash('error', error)
@@ -131,13 +127,14 @@ router.post('/nueva-votacion', protected_route, async (req, res) => {
 
 router.get('/abrir-mesa', protected_route, async (req, res) => {
     const user = req.session.user
+    await update_mesas(user.sede_id, true)
     const sede = await get_sedes(user.sede_id)
     console.log(sede);
+    req.session.mesa.estado_mesa = true
+    setTimeout(() => {
 
-    req.session.mesa = {
-        encargado: user.name, numero_mesa: user.mesa, sede: sede.name, estado_mesa: true
-    }
-    res.redirect('/')
+        res.redirect('/')
+    }, 1000)
 })
 
 router.post('/abrir-mesa', protected_route, async (req, res) => {
@@ -179,7 +176,7 @@ router.get('/ver-resultados', protected_route, async (req, res) => {
     const comunales = await get_voting_counter(2, periodo)
     const infantiles = await get_voting_counter(3, periodo)
     const juveniles = await get_voting_counter(4, periodo)
-    console.log(sectoriales, comunales, infantiles, juveniles);
+    // console.log(sectoriales, comunales, infantiles, juveniles);
 
     res.render('showResults.html', { sectoriales, comunales, infantiles, juveniles })
 })

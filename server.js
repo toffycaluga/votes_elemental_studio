@@ -4,6 +4,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import auth from './routes/auth.js';
 import router from './routes/routes.js';
+import data_database from './routes/data.js';
 
 const app = express()
 
@@ -48,6 +49,7 @@ app.use(function (req, res, next) {
 // RUTAS
 app.use(auth)
 app.use(router)
+app.use(data_database)
 
 
 
