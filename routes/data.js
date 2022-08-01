@@ -1,5 +1,5 @@
 import express from 'express';
-import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options } from "../db.js";
+import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options, update_mesas } from "../db.js";
 import bcrypt from 'bcrypt'
 
 const router = express.Router()
@@ -783,6 +783,14 @@ router.get('/admin/llenar-tablas', async (req, res) => {
         console.log(error);
     }
 
+})
+router.get('/restablecer-mesas', async (req, res) => {
+    for (let i = 1; i <= 13; i++) {
+
+        await update_mesas(i, null)
+    }
+    req.flash('mensaje', 'mesas restablecidas con exito')
+    res.redirect('/')
 })
 
 

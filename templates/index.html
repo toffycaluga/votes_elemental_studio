@@ -31,6 +31,9 @@
         {%if user.functions=='Digitador' and mesa.estado_mesa==null%}
         <h3>Encargado de mesa aun no abre mesa actual</h3>
         {%endif%}
+        {%if user.functions=='Digitador' and mesa.estado_mesa==null%}
+        <h3>La mesa ya a sido cerrada</h3>
+        {%endif%}
         <a href="/ver-resultados" class="btn btn-primary m-2">ver resultados de votaciónes</a>
     </div>
 
