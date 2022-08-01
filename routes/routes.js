@@ -168,7 +168,7 @@ router.post('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => 
     req.flash('mensaje', 'votacion editada con exito')
     res.redirect('/')
 })
-router.get('/ver-resultados', protected_route, async (req, res) => {
+router.get('/ver-resultados', async (req, res) => {
     // const mesa = req.params.mesa;
     // const sede_id = req.params.sede_id
     const periodo = 2022
@@ -176,9 +176,16 @@ router.get('/ver-resultados', protected_route, async (req, res) => {
     const comunales = await get_voting_counter(2, periodo)
     const infantiles = await get_voting_counter(3, periodo)
     const juveniles = await get_voting_counter(4, periodo)
-    // console.log(sectoriales, comunales, infantiles, juveniles);
+    console.log(sectoriales, comunales, infantiles, juveniles);
+    req.flash('mensaje', 'aun no se cierra ninguna mesa')
+    let mensajes = req.flash('mensaje')
 
-    res.render('showResults.html', { sectoriales, comunales, infantiles, juveniles })
+    console.log(sectoriales.length);
+    if (sectoriales.length != 0) {
+        mensajes = null;
+    }
+
+    res.render('showResults.html', { mensajes, sectoriales, comunales, infantiles, juveniles })
 })
 
 

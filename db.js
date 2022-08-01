@@ -154,7 +154,7 @@ export async function get_voting_counter(type, periodo) {
 
 
         const { rows } = await client.query({
-            text: " select project_options.name, sum(option_counters.cant_votes) as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 group by( project_options.name)"
+            text: " select project_options.id,project_options.name, sum(option_counters.cant_votes) as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 group by ( project_options.name,project_options.id)order by cant_votes desc "
             ,
             values: [type, periodo]
 
@@ -345,6 +345,16 @@ export async function update_mesas(sede_id, estado) {
     } catch (error) {
         console.log(error);
     }
-
-
 }
+
+export async function delete_vote_count() {
+    const client = await pool.connect()
+
+    try {
+        await client.query({
+            text: 'delete from option_counters'
+        })
+    } catch (error) {
+        console.log(error);
+    }
+} 
