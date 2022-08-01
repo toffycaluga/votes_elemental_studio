@@ -10,7 +10,7 @@ const router = express.Router()
 function protected_route(req, res, next) {
     if (!req.session.user) {
         // si quiere trabajar sin rutas prptegidas, comente la siguiente línea
-        // return res.redirect('/login')
+        return res.redirect('/login')
     }
     next()
 }
