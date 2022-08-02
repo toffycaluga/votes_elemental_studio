@@ -749,7 +749,9 @@ const mesas = [
     },
 ]
 
-const project_type = ["sectorial", "comunal", "infantil", "juvenil"];
+const project_type = [
+    "sectorial", "comunal", "infantil", "juvenil"
+];
 
 
 router.get('/admin/llenar-tablas', async (req, res) => {
