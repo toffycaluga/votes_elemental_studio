@@ -71,3 +71,14 @@ create table funcionarios(
     periodo integer not null,
     foreign key (sede_id) references sedes(id)
 );
+
+
+
+create table contibuyentes(
+    rut varchar (12) primary key ,
+    nombres varchar(255) not null,
+    apellido_paterno varchar(255) not null,
+    apellido_materno varchar(255) not null,
+    f_nacimiento date not null,
+    domicilio varchar(255) not null
+);

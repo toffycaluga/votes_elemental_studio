@@ -28,10 +28,10 @@ router.post('/login', async (req, res) => {
             return res.redirect('/login')
         }
         req.session.user = user_encontrado
-        console.log(user_encontrado);
+        // console.log(user_encontrado);
         const sede = await get_sedes(user_encontrado.sede_id);
         const mesa = await get_mesas(user_encontrado.sede_id);
-        console.log(sede, mesa);
+        // console.log(sede, mesa);
         mesa.sede = sede.name;
         req.session.mesa = mesa;
 

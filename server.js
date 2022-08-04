@@ -33,12 +33,12 @@ app.use(flash())
 // para dejar el user como variable global de los templates
 app.use(function (req, res, next) {
     res.locals.user = req.session.user
-    console.log(req.session.user);
+    // console.log(req.session.user);
     next()
 })
 app.use(function (req, res, next) {
     res.locals.mesa = req.session.mesa
-    console.log(req.session.mesa);
+    // console.log(req.session.mesa);
     next();
 })
 app.use(function (req, res, next) {

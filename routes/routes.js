@@ -1,7 +1,8 @@
 import express from 'express';
 import fs from 'fs/promises';
-import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_funcionarios, get_project_type, get_sedes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas } from "../db.js";
+import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
 import bcrypt from 'bcrypt'
+import { format_for_table } from '../tools/datos_tabla.js';
 
 
 
@@ -70,13 +71,13 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
     }
 })
 router.post('/cerrar-mesa/:mesa_id', protected_route, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const counters = Object.values(req.body);
     // console.log(counters);
     const sede = req.session.user.sede_id;
     const n_mesa = req.params.mesa_id
     for (let i = 0; i < counters.length; i += 2) {
-        console.log(counters[i], counters[i + 1]);
+        // console.log(counters[i], counters[i + 1]);
         create_vote_count(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
     }
 
@@ -92,7 +93,7 @@ router.get('/cerrar-mesa', protected_route, async (req, res) => {
     const infantiles = await get_voting_data(3, periodo)
     const juveniles = await get_voting_data(4, periodo)
 
-    console.log(sectoriales, comunales, infantiles, juveniles);
+    // console.log(sectoriales, comunales, infantiles, juveniles);
 
 
     res.render('votingClose.html', { sectoriales, comunales, infantiles, juveniles })
@@ -106,7 +107,7 @@ router.get('/nueva-votacion', protected_route, async (req, res) => {
     res.render('newVoting.html', { project_types })
 })
 router.post('/nueva-votacion', protected_route, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const data = req.body
     const dataProject = {};
     dataProject.periodo = data.periodo;
@@ -121,7 +122,7 @@ router.post('/nueva-votacion', protected_route, async (req, res) => {
 
     req.flash('mensaje', `item agregado con exito`)
     // req.flash('error', error)
-    console.log(dataProject);
+    // console.log(dataProject);
     res.redirect('/nueva-votacion')
 })
 
@@ -129,16 +130,16 @@ router.get('/abrir-mesa', protected_route, async (req, res) => {
     const user = req.session.user
     await update_mesas(user.sede_id, true)
     const sede = await get_sedes(user.sede_id)
-    console.log(sede);
+    // console.log(sede);
     req.session.mesa.estado_mesa = true
     setTimeout(() => {
 
         res.redirect('/')
-    }, 1000)
+    }, 500)
 })
 
 router.post('/abrir-mesa', protected_route, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const encargado = req.body.encargado;
     const numero_mesa = req.body.numero_mesa;
     const estado_mesa = true;
@@ -157,13 +158,22 @@ router.get('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => {
     const comunales = await get_voting_counter_table(2, periodo, mesa, sede_id)
     const infantiles = await get_voting_counter_table(3, periodo, mesa, sede_id)
     const juveniles = await get_voting_counter_table(4, periodo, mesa, sede_id)
-    console.log(sectoriales, comunales, infantiles, juveniles);
+    // console.log(sectoriales, comunales, infantiles, juveniles);
 
 
 
     res.render('editTable.html', { sectoriales, comunales, infantiles, juveniles })
 })
 router.post('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => {
+    const counters = Object.values(req.body);
+    // console.log(counters);
+    const sede = req.params.sede_id;
+    const n_mesa = req.params.mesa
+    console.log(sede, n_mesa);
+    for (let i = 0; i < counters.length; i += 2) {
+        console.log(counters[i], counters[i + 1]);
+        update_vote(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
+    }
 
     req.flash('mensaje', 'votacion editada con exito')
     res.redirect('/')
@@ -176,16 +186,34 @@ router.get('/ver-resultados', async (req, res) => {
     const comunales = await get_voting_counter(2, periodo)
     const infantiles = await get_voting_counter(3, periodo)
     const juveniles = await get_voting_counter(4, periodo)
-    console.log(sectoriales, comunales, infantiles, juveniles);
+
+    const stotales = await get_total_votes(1, periodo)
+    const ctotales = await get_total_votes(2, periodo)
+    const itotales = await get_total_votes(3, periodo)
+    const jtotales = await get_total_votes(4, periodo)
+
+    const array_proyectos_sectoriales = await format_for_table(sectoriales);
+    const array_proyectos_comunales = await format_for_table(comunales);
+    const array_proyectos_infantiles = await format_for_table(infantiles);
+    const array_proyectos_juveniles = await format_for_table(juveniles);
+
+    // console.log('array_proyectos', array_proyectos_sectoriales);
+
+
+
+    // console.log('sectoriales', sectoriales);
+    const sedes = await get_sedes();
+
+
     req.flash('mensaje', 'aun no se cierra ninguna mesa')
     let mensajes = req.flash('mensaje')
 
-    console.log(sectoriales.length);
+    //console.log(sectoriales.length);
     if (sectoriales.length != 0) {
         mensajes = null;
     }
 
-    res.render('showResults.html', { mensajes, sectoriales, comunales, infantiles, juveniles })
+    res.render('showResults.html', { array_proyectos_sectoriales, sedes, array_proyectos_juveniles, array_proyectos_infantiles, array_proyectos_comunales })
 })
 
 
@@ -199,6 +227,7 @@ router.post('/asignar-funcionario', async (req, res) => {
     if (data.password == data.password_confirm) {
         const password_encrypt = await bcrypt.hash(data.password, 10)
         data.password = password_encrypt;
+        // console.log(data);
         await create_funcionario(data);
         req.flash('mensaje', 'agregado con exito!')
     } else {

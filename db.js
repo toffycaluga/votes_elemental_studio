@@ -148,13 +148,28 @@ export async function get_voting_data(type, periodo) {
     }
 
 }
+
+export async function get_voting_counter_totals(type) {
+    const client = await pool.connect();
+    try {
+        const { rows } = await client.query({
+            text: 'select project_options.id, option_counters.cant_votes as cant_votes,option_counters.sede_id from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 group by ( project_options.id,option_counters.sede_id,option_counters.cant_votes)order by cant_votes desc',
+            values: [type]
+        })
+        client.release()
+        return rows
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function get_voting_counter(type, periodo) {
     const client = await pool.connect();
     try {
 
 
         const { rows } = await client.query({
-            text: " select project_options.id,project_options.name, sum(option_counters.cant_votes) as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 group by ( project_options.name,project_options.id)order by cant_votes desc "
+            text: " select project_options.id, option_counters.cant_votes,option_counters.sede_id from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 order by  option_counters.project_option_id "
             ,
             values: [type, periodo]
 
@@ -171,7 +186,7 @@ export async function get_voting_counter_table(type, periodo, mesa, sede_id) {
     try {
 
         const { rows } = await client.query({
-            text: " select option_counters.project_options_id as id,project_options.name, sum(option_counters.cant_votes) as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 and option_counters.mesa_id=$3 and option_counters.sede_id=$4 group by( project_options.name)"
+            text: " select project_options.name,option_counters.project_option_id as id, sum(option_counters.cant_votes) as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where project_options.project_type_id=$1 and project_options.periodo=$2 and option_counters.mesa_id=$3 and option_counters.sede_id=$4 group by( project_options.name, option_counters.project_option_id) order by option_counters.project_option_id asc"
             ,
             values: [type, periodo, mesa, sede_id]
 
@@ -180,7 +195,7 @@ export async function get_voting_counter_table(type, periodo, mesa, sede_id) {
         return rows
 
     } catch (error) {
-        console.log(eror);
+        console.log(error);
     }
 }
 export async function create_vote_count(cant_votes, project_option_id, numero_mesa, sede_id) {
@@ -198,6 +213,19 @@ export async function create_vote_count(cant_votes, project_option_id, numero_me
         console.log(error);
     }
 
+}
+
+export async function update_vote(cant_votes, project_option_id, numero_mesa, sede_id) {
+    const client = await pool.connect();
+    try {
+        await client.query({
+            text: 'update option_counters set cant_votes=$1 where mesa_id=$2 and sede_id=$3 and project_option_id=$4',
+            values: [cant_votes, numero_mesa, sede_id, project_option_id]
+        })
+        client.release();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function create_voting_user(rut, name, adress, edad, sede, periodo, numero_mesa) {
@@ -357,4 +385,21 @@ export async function delete_vote_count() {
     } catch (error) {
         console.log(error);
     }
-} 
+}
+
+export async function get_total_votes(type, periodo) {
+    const client = await pool.connect();
+    try {
+        const { rows } = await client.query({
+            text: ' select project_options.id,sum(option_counters.cant_votes)as cant_votes from option_counters join project_options on (project_options.id=option_counters.project_option_id)where (project_options.project_type_id=$1 and project_options.periodo=$2) group by (project_options.id) order by project_options.id desc',
+            values: [type, periodo],
+            name: 'select-totales'
+
+
+        })
+        client.release();
+        return rows;
+    } catch (error) {
+        console.log(error);
+    }
+}
