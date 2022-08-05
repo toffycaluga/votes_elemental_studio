@@ -330,7 +330,19 @@ const elementosVotacion = [
 ]
 
 const sedes = [
-    "los copihues", "aguas claras", "el mirador", "cordillera", "los pinguinos", "isla negra", "los olivos", "tralcamahuida", "maipumar", "gimnasio municipal", "padre alvear", "escuela el totoral", "las marinas"
+    "Sede social Los Clarines",
+    "Sede social Cordillera",
+    "Sede social Villa padre alvear",
+    "Sede social Villa las marinas",
+    "Sede social Maipumar",
+    "La Covacha",
+    "Sede social Los Olivos",
+    "Sede social Villa Nueva",
+    "Escuela El Totoral",
+    "Ex Hotel Italia",
+    "Gimnasio Municipal",
+    "Sede social Aguas Claras",
+    "Sede social Isla Negra",
 ]
 const funcionarios = [
     {
@@ -339,7 +351,7 @@ const funcionarios = [
         username: 'fgonzales',
         password: 'gonzalez2022',
         periodo: 2022,
-        sede_id: 13,
+        sede_id: 9,
         mesa: 'M1'
     },
     {
@@ -348,7 +360,7 @@ const funcionarios = [
         username: 'fahumada',
         password: 'ahumada2022',
         periodo: 2022,
-        sede_id: 12,
+        sede_id: 2,
         mesa: 'M1'
     },
     {
@@ -357,7 +369,7 @@ const funcionarios = [
         username: 'scardenas',
         password: 'cardenas2022',
         periodo: 2022,
-        sede_id: 11,
+        sede_id: 3,
         mesa: 'M1'
     },
     {
@@ -366,7 +378,7 @@ const funcionarios = [
         username: 'jalfaro',
         password: 'alfaro2022',
         periodo: 2022,
-        sede_id: 10,
+        sede_id: 1,
         mesa: 'M1'
     },
     {
@@ -375,7 +387,7 @@ const funcionarios = [
         username: 'jvidal',
         password: 'vidal2022',
         periodo: 2022,
-        sede_id: 9,
+        sede_id: 10,
         mesa: 'M1'
     },
     {
@@ -384,7 +396,7 @@ const funcionarios = [
         username: 'irojas',
         password: 'rojas2022',
         periodo: 2022,
-        sede_id: 8,
+        sede_id: 6,
         mesa: 'M1'
     },
     {
@@ -402,11 +414,11 @@ const funcionarios = [
         username: 'amoraga',
         password: 'moraga2022',
         periodo: 2022,
-        sede_id: 6,
+        sede_id: 13,
         mesa: 'M1'
     },
     {
-        name: 'Liliana Ibarra Caceres',
+        name: 'Alonso Ruio',
         functions: 'Ministro de Fe',
         username: 'libarra',
         password: 'ibarra2022',
@@ -420,7 +432,7 @@ const funcionarios = [
         username: 'jmatinez',
         password: 'martinez2022',
         periodo: 2022,
-        sede_id: 4,
+        sede_id: 8,
         mesa: 'M1'
     },
     {
@@ -429,7 +441,7 @@ const funcionarios = [
         username: 'jcastillo',
         password: 'castillo2022',
         periodo: 2022,
-        sede_id: 3,
+        sede_id: 4,
         mesa: 'M1'
     },
     {
@@ -438,7 +450,7 @@ const funcionarios = [
         username: 'ghidalgo',
         password: 'hidalgo2022',
         periodo: 2022,
-        sede_id: 2,
+        sede_id: 11,
         mesa: 'M1'
     },
     {
@@ -447,7 +459,7 @@ const funcionarios = [
         username: 'pgarces',
         password: 'garces2022',
         periodo: 2022,
-        sede_id: 1,
+        sede_id: 12,
         mesa: 'M1'
     },
     {
@@ -456,34 +468,34 @@ const funcionarios = [
         username: 'dperez',
         password: 'perez2022',
         periodo: 2022,
-        sede_id: 13,
+        sede_id: 2,
         mesa: 'M1'
     },
     {
-        name: 'Claudia Cayur',
+        name: 'Claudia Cayul',
         functions: 'Encargado de Local',
-        username: 'ccayur',
-        password: 'cayur2022',
+        username: 'ccayul',
+        password: 'cayul2022',
         periodo: 2022,
         sede_id: 12,
         mesa: 'M1'
     },
     {
-        name: 'CarmenGloria Garrido Briceño',
+        name: 'Carmen Gloria Garrido Briceño',
         functions: 'Encargado de Local',
         username: 'cgarrido',
         password: 'garrido2022',
         periodo: 2022,
-        sede_id: 11,
+        sede_id: 7,
         mesa: 'M1'
     },
     {
-        name: 'Consuelo Galleguillos',
+        name: 'Consuelo Gonzalez',
         functions: 'Encargado de Local',
-        username: 'cgalleguillos',
-        password: 'galleguillos2022',
+        username: 'cgonzalez',
+        password: 'gonzalez2022',
         periodo: 2022,
-        sede_id: 10,
+        sede_id: 4,
         mesa: 'M1'
     },
     {
@@ -492,7 +504,7 @@ const funcionarios = [
         username: 'fnavarro',
         password: 'navarro2022',
         periodo: 2022,
-        sede_id: 9,
+        sede_id: 3,
         mesa: 'M1'
     },
     {
@@ -501,7 +513,7 @@ const funcionarios = [
         username: 'maraos',
         password: 'araos2022',
         periodo: 2022,
-        sede_id: 8,
+        sede_id: 10,
         mesa: 'M1'
     },
     {
@@ -510,7 +522,7 @@ const funcionarios = [
         username: 'drojas',
         password: 'rojas2022',
         periodo: 2022,
-        sede_id: 7,
+        sede_id: 9,
         mesa: 'M1'
     },
     {
@@ -519,7 +531,7 @@ const funcionarios = [
         username: 'spena',
         password: 'pena2022',
         periodo: 2022,
-        sede_id: 6,
+        sede_id: 1,
         mesa: 'M1'
     },
     {
@@ -528,7 +540,7 @@ const funcionarios = [
         username: 'dlira',
         password: 'lira2022',
         periodo: 2022,
-        sede_id: 5,
+        sede_id: 11,
         mesa: 'M1'
     },
     {
@@ -537,7 +549,7 @@ const funcionarios = [
         username: 'mgaldamez',
         password: 'galdamez2022',
         periodo: 2022,
-        sede_id: 4,
+        sede_id: 5,
         mesa: 'M1'
     },
     {
@@ -546,7 +558,7 @@ const funcionarios = [
         username: 'fubilla',
         password: 'ubilla2022',
         periodo: 2022,
-        sede_id: 3,
+        sede_id: 6,
         mesa: 'M1'
     },
     {
@@ -555,7 +567,7 @@ const funcionarios = [
         username: 'atrincado',
         password: 'trincado2022',
         periodo: 2022,
-        sede_id: 2,
+        sede_id: 8,
         mesa: 'M1'
     },
     {
@@ -564,7 +576,7 @@ const funcionarios = [
         username: 'fcasas',
         password: 'casas2022',
         periodo: 2022,
-        sede_id: 1,
+        sede_id: 13,
         mesa: 'M1'
     },
     {
@@ -573,7 +585,7 @@ const funcionarios = [
         username: 'evillagran',
         password: 'villagran2022',
         periodo: 2022,
-        sede_id: 13,
+        sede_id: 1,
         mesa: 'M1'
     },
     {
@@ -582,7 +594,7 @@ const funcionarios = [
         username: 'mleiva',
         password: 'leiva2022',
         periodo: 2022,
-        sede_id: 12,
+        sede_id: 2,
         mesa: 'M1'
     },
     {
@@ -591,7 +603,7 @@ const funcionarios = [
         username: 'fcatalan',
         password: 'catalan2022',
         periodo: 2022,
-        sede_id: 11,
+        sede_id: 10,
         mesa: 'M1'
     },
     {
@@ -600,7 +612,7 @@ const funcionarios = [
         username: 'bcesped',
         password: 'cesped2022',
         periodo: 2022,
-        sede_id: 10,
+        sede_id: 11,
         mesa: 'M1'
     },
     {
@@ -609,7 +621,7 @@ const funcionarios = [
         username: 'iossandon',
         password: 'ossandon2022',
         periodo: 2022,
-        sede_id: 9,
+        sede_id: 6,
         mesa: 'M1'
     },
     {
@@ -618,7 +630,7 @@ const funcionarios = [
         username: 'rcisternas',
         password: 'cisternas2022',
         periodo: 2022,
-        sede_id: 8,
+        sede_id: 4,
         mesa: 'M1'
     },
     {
@@ -627,7 +639,7 @@ const funcionarios = [
         username: 'acarreno',
         password: 'carreno2022',
         periodo: 2022,
-        sede_id: 7,
+        sede_id: 9,
         mesa: 'M1'
     },
     {
@@ -636,7 +648,7 @@ const funcionarios = [
         username: 'varias',
         password: 'arias2022',
         periodo: 2022,
-        sede_id: 6,
+        sede_id: 12,
         mesa: 'M1'
     },
     {
@@ -649,18 +661,18 @@ const funcionarios = [
         mesa: 'M1'
     },
     {
-        name: 'Constanza Castillo',
+        name: 'Ana Pacheco',
         functions: 'Digitador',
-        username: 'ccastillo',
-        password: 'castillo2022',
+        username: 'apacheco',
+        password: 'pacheco2022',
         periodo: 2022,
-        sede_id: 4,
+        sede_id: 13,
         mesa: 'M1'
     },
     {
-        name: 'Maria Fernanda Gutierrez Silva',
+        name: 'Fernanda Gutierrez Silva',
         functions: 'Digitador',
-        username: 'mgutierrez',
+        username: 'fgutierrez',
         password: 'gutierrez2022',
         periodo: 2022,
         sede_id: 3,
@@ -672,7 +684,7 @@ const funcionarios = [
         username: 'cromo',
         password: 'romo2022',
         periodo: 2022,
-        sede_id: 2,
+        sede_id: 7,
         mesa: 'M1'
     },
     {
@@ -681,7 +693,7 @@ const funcionarios = [
         username: 'jgaete',
         password: 'gaete2022',
         periodo: 2022,
-        sede_id: 1,
+        sede_id: 8,
         mesa: 'M1'
     }
 

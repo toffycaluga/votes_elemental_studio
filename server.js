@@ -10,6 +10,7 @@ const app = express()
 
 // CONFIGURACIONES
 app.use(express.static('static'))
+app.use(express.static('public'))
 
 nunjucks.configure("templates", {
     express: app,

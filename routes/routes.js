@@ -18,7 +18,7 @@ function protected_route(req, res, next) {
 }
 
 // RUTAS
-router.get('/', async (req, res) => {
+router.get('/', protected_route, async (req, res) => {
 
 
 
@@ -218,12 +218,12 @@ router.get('/ver-resultados', async (req, res) => {
 })
 
 
-router.get('/asignar-funcionario', async (req, res) => {
+router.get('/asignar-funcionario', protected_route, async (req, res) => {
     const mensajes = req.flash('mensaje')
     const errors = req.flash('error');
     res.render('asignarFuncionarios.html', { errors, mensajes })
 })
-router.post('/asignar-funcionario', async (req, res) => {
+router.post('/asignar-funcionario', protected_route, async (req, res) => {
     const data = req.body;
     if (data.password == data.password_confirm) {
         const password_encrypt = await bcrypt.hash(data.password, 10)
@@ -257,7 +257,7 @@ router.post('/asignar-mesa', protected_route, async (req, res) => {
     res.redirect('/asignar-mesa')
 })
 
-router.get('/contribuyentes/:rut', async (req, res) => {
+router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
     const rut = req.params.rut
     const data = await get_vote_user(rut)
     if (data) {
