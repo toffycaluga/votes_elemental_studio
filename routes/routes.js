@@ -1,8 +1,9 @@
 import express from 'express';
 import fs from 'fs/promises';
-import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
+import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_contribuyentes, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
 import bcrypt from 'bcrypt'
 import { format_for_table } from '../tools/datos_tabla.js';
+import formatDate from '../tools/formatDate.js';
 
 
 
@@ -254,6 +255,26 @@ router.post('/asignar-mesa', protected_route, async (req, res) => {
     await update_funcionario(data);
     req.flash('mensaje', 'asignado con exito')
     res.redirect('/asignar-mesa')
+})
+
+router.get('/contribuyentes/:rut', async (req, res) => {
+    const rut = req.params.rut
+    const data = await get_vote_user(rut)
+    if (data) {
+        data.nombres = data.name
+        data.apellido_paterno = ''
+        data.apellido_materno = ''
+        data.domicilio = data.addres;
+        data.edad = formatDate(data.birthdate)
+        console.log(data);
+        res.send(data)
+
+    } else {
+        const data_contribuyente = await get_contribuyentes(rut)
+        res.send(data_contribuyente);
+
+    }
+    // console.log(data_contribuyente);
 })
 
 

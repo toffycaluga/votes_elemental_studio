@@ -403,3 +403,19 @@ export async function get_total_votes(type, periodo) {
         console.log(error);
     }
 }
+
+
+export async function get_contribuyentes(rut) {
+    const client = await pool.connect();
+    try {
+        const { rows } = await client.query({
+            text: 'select * from contribuyentes where rut=$1',
+            values: [rut],
+            name: 'select-de-contribuyentes'
+        })
+        client.release();
+        return rows[0]
+    } catch (error) {
+        console.log(error);
+    }
+}

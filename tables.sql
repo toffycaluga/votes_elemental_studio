@@ -1,6 +1,12 @@
 CREATE DATABASE votes;
 
 
+-- luego de crear todas las tablas en la base de datos usar el siguiente 
+-- comando desde la consola de postgres para cargar contribuyentes:
+\copy contribuyentes from 'contribuyentes.csv' csv header;
+
+
+
 
 create table users(
     id serial primary key ,
@@ -74,11 +80,10 @@ create table funcionarios(
 
 
 
-create table contibuyentes(
+create table contribuyentes(
     rut varchar (12) primary key ,
     nombres varchar(255) not null,
     apellido_paterno varchar(255) not null,
     apellido_materno varchar(255) not null,
-    f_nacimiento date not null,
     domicilio varchar(255) not null
 );

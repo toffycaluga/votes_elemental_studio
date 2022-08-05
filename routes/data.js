@@ -41,6 +41,13 @@ const elementosVotacion = [
         project_type_id: 2
     },
     {
+        id: 'Cnulo',
+        name: 'Nulos',
+        sector: 'comunal',
+        periodo: 2022,
+        project_type_id: 2
+    },
+    {
         id: 'S1',
         name: 'Con iluminacion vivimos mejor y seguro todos',
         sector: 'Isla Negra',
@@ -181,6 +188,13 @@ const elementosVotacion = [
         project_type_id: 1
     },
     {
+        id: 'Snulo',
+        name: 'Nulos',
+        sector: 'comunal',
+        periodo: 2022,
+        project_type_id: 1
+    },
+    {
         id: 'J1',
         name: 'Talleres deportivos, artisticos y culturales para niños niñas y jovenes de El Totoral',
         sector: 'El Totoral',
@@ -244,6 +258,13 @@ const elementosVotacion = [
         project_type_id: 4
     },
     {
+        id: 'Jnulo',
+        name: 'Nulos',
+        sector: 'juvenil',
+        periodo: 2022,
+        project_type_id: 4
+    },
+    {
         id: 'I1',
         name: 'Espacios verdes para niños y niñas, un jardin sanador al cual cuidar',
         sector: 'El Totoral',
@@ -296,6 +317,12 @@ const elementosVotacion = [
         id: 'I8',
         name: 'casitas para perros callejeros',
         sector: 'El Quisco Norte / Alto / Eje Pinomar',
+        periodo: 2022,
+        project_type_id: 3
+    }, {
+        id: 'Inulo',
+        name: 'Nulos',
+        sector: 'infantil',
         periodo: 2022,
         project_type_id: 3
     },
