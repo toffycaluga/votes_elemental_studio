@@ -9,7 +9,7 @@
 <div class="container ">
     <div class="row p-5 ">
         <div class="row ">
-            <h4 class="col mb-4">Folio:{{folio}}</h4>
+            {# <h4 class="col mb-4">Folio:{{folio}}</h4> #}
             <h4 class="col mb-4">{{'mesa numero :'+mesa.name}}</h4>
 
             <h4 class="col mb-4">{{'sede:'+mesa.sede}}</h4>
@@ -25,7 +25,11 @@
                 <option value="2026">2026</option>
                 <option value="2027">2027</option>
             </select>
-            <input type="text" name="folio" value="{{folio}}" hidden>
+            <div class="mb-3 mt-3">
+                <label for="rut" class="form-label">Folio:</label>
+                {# <input type="text" name="folio" value="{{folio}}" hidden> #}
+                <input type="text" required class="form-control" id="folio" placeholder="ingrese folio" name="folio">
+            </div>
             <div class="mb-3 mt-3">
                 <label for="rut" class="form-label">Rut contribuyente:</label>
                 <input type="text" required class="form-control" id="rut" placeholder="Ejemplo :12.345.678-9"

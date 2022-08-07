@@ -34,19 +34,19 @@ router.get('/registrar-voto', protected_route, async (req, res) => {
     // let folio = 20220001;
     const mensajes = req.flash('mensaje')
     const errors = req.flash('errors')
-    let folio = 0
-    let data = await get_ultimo_voto();
-    console.log(data);
-    if (data) {
-        folio = parseInt(data.id)
+    // let folio = 0
+    // let data = await get_ultimo_voto();
+    // console.log(data);
+    // if (data) {
+    //     folio = parseInt(data.id)
 
-        folio += 1
-        console.log(folio);
-    } else {
-        folio = 20220001
-    }
+    //     folio += 1
+    //     console.log(folio);
+    // } else {
+    //     folio = 20220001
+    // }
 
-    res.render('votingRecord.html', { mensajes, errors, folio })
+    res.render('votingRecord.html', { mensajes, errors })
 })
 
 router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, res) => {
