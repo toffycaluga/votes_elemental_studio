@@ -1,5 +1,5 @@
 import express from 'express';
-import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options, delete_vote_count, update_mesas } from "../db.js";
+import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options, delete_vote_count, delete_vote_user, update_mesas } from "../db.js";
 import bcrypt from 'bcrypt'
 
 const router = express.Router()
@@ -836,6 +836,7 @@ router.get('/admin/restablecer-mesas', async (req, res) => {
 router.get('/admin/restablecer-votos', async (req, res) => {
 
     await delete_vote_count();
+    await delete_vote_user()
 
     req.flash('mensaje', 'votos eliminados con exito')
     res.redirect('/')

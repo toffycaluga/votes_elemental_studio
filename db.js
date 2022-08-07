@@ -386,6 +386,17 @@ export async function delete_vote_count() {
         console.log(error);
     }
 }
+export async function delete_vote_user() {
+    const client = await pool.connect()
+
+    try {
+        await client.query({
+            text: 'delete from vote_user'
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export async function get_total_votes(type, periodo) {
     const client = await pool.connect();
