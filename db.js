@@ -228,13 +228,13 @@ export async function update_vote(cant_votes, project_option_id, numero_mesa, se
     }
 }
 
-export async function create_voting_user(rut, name, adress, edad, sede, periodo, numero_mesa) {
+export async function create_voting_user(rut, name, adress, edad, sede, periodo, numero_mesa, folio) {
     const client = await pool.connect();
     try {
 
         await client.query({
             text: 'insert into vote_user (name,addres,birthdate, sede_id,periodo,mesa,rut,id) values ($1,$2, $3,$4,$5,$6,$7,$8)',
-            values: [name, adress, edad, sede, periodo, numero_mesa, rut, periodo + '-00' + rut]
+            values: [name, adress, edad, sede, periodo, numero_mesa, rut, folio]
 
         })
         client.release()
@@ -414,6 +414,19 @@ export async function get_contribuyentes(rut) {
             name: 'select-de-contribuyentes'
         })
         client.release();
+        return rows[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function get_ultimo_voto() {
+    const client = await pool.connect()
+    try {
+        const { rows } = await client.query({
+            text: 'SELECT * FROM vote_user ORDER BY id DESC LIMIT 1'
+        })
+        client.release()
         return rows[0]
     } catch (error) {
         console.log(error);

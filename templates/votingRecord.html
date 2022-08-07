@@ -9,6 +9,7 @@
 <div class="container ">
     <div class="row p-5 ">
         <div class="row ">
+            <h4 class="col mb-4">Folio:{{folio}}</h4>
             <h4 class="col mb-4">{{'mesa numero :'+mesa.name}}</h4>
 
             <h4 class="col mb-4">{{'sede:'+mesa.sede}}</h4>
@@ -24,6 +25,7 @@
                 <option value="2026">2026</option>
                 <option value="2027">2027</option>
             </select>
+            <input type="text" name="folio" value="{{folio}}" hidden>
             <div class="mb-3 mt-3">
                 <label for="rut" class="form-label">Rut contribuyente:</label>
                 <input type="text" required class="form-control" id="rut" placeholder="Ejemplo :12.345.678-9"
@@ -58,19 +60,19 @@
     document.getElementById('rut').addEventListener('input', function (evt) {
         let value = this.value.replace(/\./g, '').replace('-', '');
 
-        if (value.match(/^(\d{2})(\d{3}){2}(\w{0,1})$/)) {
+        if (value.match(/^(\d)(\d{3}){2}(\w{0,1})$/)) {
             value = value.replace(/^(\d{7})(\w{0,1})$/, '$1-$2');
         }
-        else if (value.match(/^(\d)(\d{3}){2}(\w{0,1})$/)) {
-            value = value.replace(/^(\d{6})(\w{0,1})$/, '$1-$2');
+        if (value.match(/^(\d)(\d{3}){2}(\w{0,2})$/)) {
+            value = value.replace(/^(\d{8})(\w{0,2})$/, '$1-$2');
         }
-        this.value = value;
         // else if (value.match(/^(\d)(\d{3})(\d{0,2})$/)) {
-        //     value = value.replace(/^(\d)(\d{3})(\d{0,2})$/, '$1.$2.$3');
+        //     value = value.replace(/^(\d)(\d{3})(\d{0,2})$/, '$1-$2');
         // }
         // else if (value.match(/^(\d)(\d{0,2})$/)) {
-        //     value = value.replace(/^(\d)(\d{0,2})$/, '$1.$2');
-        // }
+        //     value = value.replace(/^(\d)(\d{0,2})$/, '$1-$2');
+
+        this.value = value;
     });
 
     $(document).ready(function () {

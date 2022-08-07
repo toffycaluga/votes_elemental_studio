@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs/promises';
-import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_contribuyentes, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
+import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_contribuyentes, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_ultimo_voto, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
 import bcrypt from 'bcrypt'
 import { format_for_table } from '../tools/datos_tabla.js';
 import formatDate from '../tools/formatDate.js';
@@ -31,17 +31,26 @@ router.get('/', protected_route, async (req, res) => {
 router.get('/registrar-voto', protected_route, async (req, res) => {
 
 
-
+    // let folio = 20220001;
     const mensajes = req.flash('mensaje')
     const errors = req.flash('errors')
+    let folio = 0
+    let data = await get_ultimo_voto();
+    console.log(data);
+    if (data) {
+        folio = parseInt(data.id)
 
+        folio += 1
+        console.log(folio);
+    } else {
+        folio = 20220001
+    }
 
-    res.render('votingRecord.html', { mensajes, errors })
+    res.render('votingRecord.html', { mensajes, errors, folio })
 })
 
 router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
+
     const sede_id = req.params.sede
 
     // console.log(sede);
@@ -52,6 +61,7 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
     const adress = req.body.adress;
     const edad = req.body.edad;
     const name = req.body.name;
+    const folio = req.body.folio
     const usuario_existente = await get_vote_user(rut)
     console.log(usuario_existente);
     if (usuario_existente) {
@@ -61,12 +71,12 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
             req.flash('errors', 'usuario rut :' + rut + ' ya hizo proceso de votacion en sede : ' + sede.name)
             res.redirect('/registrar-voto')
         } else {
-            await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa);
+            await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
             req.flash('mensaje', 'usuario registrado correctamente')
             res.redirect('/')
         }
     } else {
-        await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa);
+        await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
         req.flash('mensaje', 'usuario registrado correctamente')
         res.redirect('/')
     }
