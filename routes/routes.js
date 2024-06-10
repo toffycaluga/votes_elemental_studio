@@ -191,15 +191,15 @@ router.post('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => 
     try {
 
         const counters = Object.values(req.body);
-        console.log(req.body);
+        // console.log(req.body);
         const sede = req.params.sede_id;
         const n_mesa = req.params.mesa
-        console.log(sede, n_mesa);
+        // console.log(sede, n_mesa);
         console.log('editando....');
         for (let i = 0; i < counters.length; i += 2) {
             // console.log(counters[i], counters[i + 1]);
             await update_vote(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
-            console.log();
+            // console.log();
         }
 
         req.flash('mensaje', 'votacion editada con exito')
