@@ -53,19 +53,22 @@
 
             {# ------ #}
             <div class="rounded bg-primary bg-opacity-50 container p-2">
-
-                <div class="row">
-                    <h6 CLASS="col ">PROYECTOS INFANTILES</h6>
-                    <h6 class="col">CANTIDAD DE VOTOS</h6>
+                <div class="row mb-3">
+                    <h6 class="col text-truncate">PROYECTOS INFANTILES</h6>
+                    <h6 class="col text-truncate">CANTIDAD DE VOTOS</h6>
                 </div>
-                {%for infantil in infantiles%}
+                {% for infantil in infantiles %}
                 <div class="input-group mb-3">
-                    <span class="input-group-text">{{infantil.id+' : '+infantil.name}}</span>
-                    <span class="input-group-text">sector {{infantil.sector}}</span>
-                    <input type="number" name={{'count_votes'+infantil.id}} class="form-control">
-                    <input type="text" name={{'id_option'+infantil.id}} hidden value={{infantil.id}}>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-truncate">{{infantil.id + ' : ' + infantil.name}}</span>
+                    </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-truncate">sector {{infantil.sector}}</span>
+                    </div>
+                    <input type="number" name={{'count_votes' + infantil.id}} class="form-control">
+                    <input type="text" name={{'id_option' + infantil.id}} hidden value={{infantil.id}}>
                 </div>
-                {%endfor%}
+                {% endfor %}
             </div>
 
 
@@ -92,6 +95,14 @@
     </div>
 
 </div>
+<style>
+    .input-group-text {
+        white-space: wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+</style>
 {% endblock %}
 {% block script %}
 
