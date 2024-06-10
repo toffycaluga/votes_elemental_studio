@@ -18,7 +18,7 @@
 const periodo = 2024;
 
 
-const ministrosDeFe = [
+export const ministrosDeFe = [
     {
         name: 'Estefanía Toledo Arcos',
         functions: 'Ministro de Fe',
@@ -140,4 +140,4 @@ const ministrosDeFe = [
 
 ]
 
-console.log("ministros de fe : ", ministrosDeFe)
+// console.log("ministros de fe : ", ministrosDeFe)

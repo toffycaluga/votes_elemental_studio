@@ -139,4 +139,4 @@ export const digitadores = [
 ];
 
 
-console.log("digitadores : ", digitadores)
+// console.log("digitadores : ", digitadores)

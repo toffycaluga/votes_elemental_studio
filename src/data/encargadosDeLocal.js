@@ -16,7 +16,7 @@
 
 const periodo = 2024;
 
-const encargadosDeLocal = [
+export const encargadosDeLocal = [
     {
         name: 'Pablina Ovalle Barrera',
         functions: 'Encargado de Local',
@@ -138,4 +138,4 @@ const encargadosDeLocal = [
 
 ]
 
-console.log("ministros de fe : ", encargadosDeLocal)
+// console.log("ministros de fe : ", encargadosDeLocal)
