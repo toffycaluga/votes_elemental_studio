@@ -4,6 +4,7 @@ import { create_funcionario, create_sede, create_vote_count, create_voting, crea
 import bcrypt from 'bcrypt'
 import { format_for_table } from '../tools/datos_tabla.js';
 import formatDate from '../tools/formatDate.js';
+import { log } from 'util';
 
 const periodo = 2024
 
@@ -162,32 +163,52 @@ router.post('/abrir-mesa', protected_route, async (req, res) => {
 })
 
 router.get('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => {
-    const mesa = req.params.mesa;
-    const sede_id = req.params.sede_id
+    try {
 
-    const sectoriales = await get_voting_counter_table(1, periodo, mesa, sede_id)
-    const comunales = await get_voting_counter_table(2, periodo, mesa, sede_id)
-    const infantiles = await get_voting_counter_table(3, periodo, mesa, sede_id)
-    const juveniles = await get_voting_counter_table(4, periodo, mesa, sede_id)
-    // console.log(sectoriales, comunales, infantiles, juveniles);
+        console.log(req.params);
+        const { mesa, sede_id } = req.params;
 
+        console.log("mesa : ", mesa);
 
-
-    res.render('editTable.html', { sectoriales, comunales, infantiles, juveniles })
+        console.log("sede id :", sede_id);
+        console.log("cargando datos de tablas...");
+        const sectoriales = await get_voting_counter_table(1, periodo, mesa, sede_id)
+        console.log("añadiendo sectoriales...");
+        const comunales = await get_voting_counter_table(2, periodo, mesa, sede_id)
+        console.log("añadiendo comunales");
+        const infantiles = await get_voting_counter_table(3, periodo, mesa, sede_id)
+        console.log("añadiendo infantiles");
+        const juveniles = await get_voting_counter_table(4, periodo, mesa, sede_id)
+        // console.log(sectoriales, comunales, infantiles, juveniles);
+        console.log("añadiendo jueveniles");
+        console.log("datos cargados con exito!");
+        res.render('editTable.html', { sectoriales, comunales, infantiles, juveniles })
+    } catch (e) {
+        console.log(e);
+    }
 })
 router.post('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => {
-    const counters = Object.values(req.body);
-    // console.log(counters);
-    const sede = req.params.sede_id;
-    const n_mesa = req.params.mesa
-    console.log(sede, n_mesa);
-    for (let i = 0; i < counters.length; i += 2) {
-        console.log(counters[i], counters[i + 1]);
-        update_vote(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
-    }
+    try {
 
-    req.flash('mensaje', 'votacion editada con exito')
-    res.redirect('/')
+        const counters = Object.values(req.body);
+        // console.log(req.body);
+        const sede = req.params.sede_id;
+        const n_mesa = req.params.mesa
+        // console.log(sede, n_mesa);
+        console.log('editando....');
+        for (let i = 0; i < counters.length; i += 2) {
+            // console.log(counters[i], counters[i + 1]);
+            await update_vote(parseInt(counters[i]), counters[i + 1], n_mesa, sede)
+            // console.log();
+        }
+
+        req.flash('mensaje', 'votacion editada con exito')
+        res.redirect('/')
+    } catch (e) {
+        console.log("error", e);
+        req.flash('error', e.code)
+        res.redirect('/')
+    }
 })
 router.get('/ver-resultados', async (req, res) => {
     // const mesa = req.params.mesa;

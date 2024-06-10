@@ -21,7 +21,7 @@
         {%endif%}
         {%if mesa.estado_mesa==false and user.functions=='Encargado de Local'%}
         <a disabled class="btn btn-light m-2"> mesa cerrada</a>
-        <a href={{"/editar-mesa/"+user.mesa+'/'+user.sede_id}} class="btn btn-warning m-2">editar mesa de votaciónes</a>
+        <a href='/editar-mesa/{{user.mesa}}/{{user.sede_id}}' class="btn btn-warning m-2">editar mesa de votaciónes</a>
         {%elif mesa.estado_mesa==true and (user.functions =='Encargado de Local') %}
         <a href="/cerrar-mesa" class="btn btn-danger m-2">cerrar mesa de votaciónes</a>
 
