@@ -30,7 +30,7 @@ router.get('/admin/llenar-tablas', async (req, res) => {
 
 
         for (let i = 0; i < projectType.length; i++) {
-            await create_project_type(project_type[i]);
+            await create_project_type(projectType[i]);
         }
 
         for (let i = 0; i < elementosVotacion.length; i++) {

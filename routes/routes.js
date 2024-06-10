@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 import { format_for_table } from '../tools/datos_tabla.js';
 import formatDate from '../tools/formatDate.js';
 
-
+const periodo = 2024
 
 const router = express.Router()
 
@@ -57,7 +57,7 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
 
     const numero_mesa = req.params.numero_mesa;
     const rut = req.body.rut;
-    const periodo = parseInt(req.body.periodo)
+
     const adress = req.body.adress;
     const edad = req.body.edad;
     const name = req.body.name;
@@ -98,11 +98,11 @@ router.post('/cerrar-mesa/:mesa_id', protected_route, async (req, res) => {
 })
 router.get('/cerrar-mesa', protected_route, async (req, res) => {
 
-    const periodo = '2022'
-    const sectoriales = await get_voting_data(1, periodo)
-    const comunales = await get_voting_data(2, periodo)
-    const infantiles = await get_voting_data(3, periodo)
-    const juveniles = await get_voting_data(4, periodo)
+
+    const sectoriales = await get_voting_data(1, periodo.toString())
+    const comunales = await get_voting_data(2, periodo.toString())
+    const infantiles = await get_voting_data(3, periodo.toString())
+    const juveniles = await get_voting_data(4, periodo.toString())
 
     // console.log(sectoriales, comunales, infantiles, juveniles);
 
@@ -164,7 +164,7 @@ router.post('/abrir-mesa', protected_route, async (req, res) => {
 router.get('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => {
     const mesa = req.params.mesa;
     const sede_id = req.params.sede_id
-    const periodo = 2022
+
     const sectoriales = await get_voting_counter_table(1, periodo, mesa, sede_id)
     const comunales = await get_voting_counter_table(2, periodo, mesa, sede_id)
     const infantiles = await get_voting_counter_table(3, periodo, mesa, sede_id)
@@ -192,7 +192,7 @@ router.post('/editar-mesa/:mesa/:sede_id', protected_route, async (req, res) => 
 router.get('/ver-resultados', async (req, res) => {
     // const mesa = req.params.mesa;
     // const sede_id = req.params.sede_id
-    const periodo = 2022
+
     const sectoriales = await get_voting_counter(1, periodo)
     const comunales = await get_voting_counter(2, periodo)
     const infantiles = await get_voting_counter(3, periodo)
