@@ -27,7 +27,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">{{sectorial.id+' : '+sectorial.name}}</span>
                     <span class="input-group-text">sector {{sectorial.sector}}</span>
-                    <input type="number" name={{'count_votes'+sectorial.id}} class="form-control">
+                    <input type="number" name={{'count_votes'+sectorial.id}} class="form-control" required>
                     <input type="text" name={{'id_option'+sectorial.id}} hidden value={{sectorial.id}}>
                 </div>
                 {%endfor%}
@@ -44,7 +44,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">{{comunal.id+' : '+comunal.name}}</span>
                     <span class="input-group-text">sector {{comunal.sector}}</span>
-                    <input type="number" name={{'count_votes'+comunal.id}} class="form-control">
+                    <input type="number" name={{'count_votes'+comunal.id}} class="form-control" required>
                     <input type="text" name={{'id_option'+comunal.id}} hidden value={{comunal.id}}>
                 </div>
                 {%endfor%}
@@ -65,7 +65,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text text-truncate">sector {{infantil.sector}}</span>
                     </div>
-                    <input type="number" name={{'count_votes' + infantil.id}} class="form-control">
+                    <input type="number" name={{'count_votes' + infantil.id}} class="form-control" required>
                     <input type="text" name={{'id_option' + infantil.id}} hidden value={{infantil.id}}>
                 </div>
                 {% endfor %}
@@ -82,7 +82,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">{{juvenil.id+' : '+juvenil.name}}</span>
                     <span class="input-group-text">sector {{juvenil.sector}}</span>
-                    <input type="number" name={{'count_votes'+juvenil.id}} class="form-control">
+                    <input type="number" name={{'count_votes'+juvenil.id}} class="form-control" required>
                     <input type="text" name={{'id_option'+juvenil.id}} hidden value={{juvenil.id}}>
                 </div>
                 {%endfor%}
