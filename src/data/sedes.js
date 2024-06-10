@@ -1,0 +1,15 @@
+export const sedes = [
+    "Sede social Los Clarines",
+    "Sede social Cordillera",
+    "Sede social Villa padre alvear",
+    "Sede social Villa las marinas",
+    "Sede social Maipumar",
+    "La Covacha",
+    "Sede social Los Olivos",
+    "Sede social Villa Nueva",
+    "Escuela El Totoral",
+    "Ex Hotel Italia",
+    "Gimnasio Municipal",
+    "Sede social Aguas Claras",
+    "Sede social Isla Negra",
+]
