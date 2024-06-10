@@ -5,12 +5,20 @@ import flash from 'connect-flash';
 import auth from './routes/auth.js';
 import router from './routes/routes.js';
 import data_database from './routes/data.js';
+import { sedes } from './src/data/sedes.js';
+import path from 'path';
+
 
 const app = express()
 
 // CONFIGURACIONES
+
+
+const __dirname = path.resolve();
+
+// Configurar middleware para servir archivos estáticos desde el directorio "public"
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('static'))
-app.use(express.static('public'))
 
 nunjucks.configure("templates", {
     express: app,
@@ -43,7 +51,7 @@ app.use(function (req, res, next) {
     next();
 })
 app.use(function (req, res, next) {
-    res.locals.sedes = ["los copihues", "aguas claras", "el mirador", "cordillera", "los pinguinos", "isla negra", "los olivos", "tralcamahuida", "maipumar", "gimnasio municipal", "padre alvear", "escuela el totoral", "las marinas"]
+    res.locals.sedes = sedes;
     next()
 })
 
