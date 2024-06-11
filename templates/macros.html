@@ -1,7 +1,7 @@
 {% macro navbar (active,user) %}
 <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #003352">
-    <div class="container-fluid">
-        <img src="/img/favicon.ico" alt="municipalidad" style="width: 40px;" class="rounded-2 m-2">
+    <div class="container">
+        <img src="/img/municipalidad.png" alt="municipalidad" class="nav-icon">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,4 +36,12 @@
         </div>
     </div>
 </nav>
+<style>
+    .nav-icon {
+        width: 140px;
+        height: 40px;
+        border-radius: 5px;
+        filter: drop-shadow(#fff);
+    }
+</style>
 {% endmacro %}
