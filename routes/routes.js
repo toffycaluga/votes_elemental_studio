@@ -1,10 +1,9 @@
 import express from 'express';
-import fs from 'fs/promises';
-import { create_funcionario, create_sede, create_vote_count, create_voting, create_voting_options, create_voting_user, get_contribuyentes, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_ultimo_voto, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote } from "../db.js";
+import { create_funcionario, create_vote_count, create_voting_options, create_voting_user, get_contribuyentes, get_funcionarios, get_project_type, get_sedes, get_total_votes, get_ultimo_voto, get_vote_folio, get_vote_user, get_voting_counter, get_voting_counter_table, get_voting_data, update_funcionario, update_mesas, update_vote, get_vote_user_periodo, get_vote_folio_periodo } from "../db.js";
 import bcrypt from 'bcrypt'
 import { format_for_table } from '../tools/datos_tabla.js';
 import formatDate from '../tools/formatDate.js';
-import { log } from 'util';
+
 
 const periodo = 2024
 
@@ -63,6 +62,18 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
     const edad = req.body.edad;
     const name = req.body.name;
     const folio = req.body.folio
+
+
+
+    const folio_existente = await get_vote_folio(folio);
+    if (folio_existente) {
+        const sede = await get_sedes(folio_existente.sede_id);
+        req.flash('errors', 'el numero de folio :' + folio + ' ya fue utilizado en sede : ' + sede.name)
+        return res.redirect('/registrar-voto')
+    }
+
+
+
     const usuario_existente = await get_vote_user(rut)
     console.log(usuario_existente);
     if (usuario_existente) {
@@ -70,16 +81,16 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
         const sede = await get_sedes(usuario_existente.sede_id);
         if (usuario_existente.periodo == periodo) {
             req.flash('errors', 'usuario rut :' + rut + ' ya hizo proceso de votacion en sede : ' + sede.name)
-            res.redirect('/registrar-voto')
+            return res.redirect('/registrar-voto')
         } else {
             await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
             req.flash('mensaje', 'usuario registrado correctamente')
-            res.redirect('/')
+            return res.redirect('/')
         }
     } else {
         await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
         req.flash('mensaje', 'usuario registrado correctamente')
-        res.redirect('/')
+        return res.redirect('/')
     }
 })
 router.post('/cerrar-mesa/:mesa_id', protected_route, async (req, res) => {
@@ -296,7 +307,7 @@ router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
         data.apellido_paterno = ''
         data.apellido_materno = ''
         data.domicilio = data.addres;
-        data.edad = formatDate(data.birthdate)
+        data.edad = formatDate(data.birthdate);
         console.log(data);
         res.send(data)
 
@@ -308,7 +319,32 @@ router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
     // console.log(data_contribuyente);
 })
 
+router.get('/votes-exist/:dato', protected_route, async (req, res) => {
+    const { dato } = req.params
 
+    try {
+        let mensaje
+        let data = await get_vote_user_periodo(dato, periodo)
+        if (data) {
+            const sede = await get_sedes(data.sede_id);
+            // console.log(sede);
+            mensaje = `rut :${dato} ya hizo proceso de votacion en sede : ${sede.name}`
+            console.log("usuario encontrada");
+        } else {
+            data = await get_vote_folio_periodo(dato, periodo)
+            const sede = await get_sedes(data.sede_id);
+            mensaje = `Folio :${dato} ya se utilizo en otro voto,en sede :${sede.name} `
+            console.log("folio encontrado");
+        }
+        return res.status(200).send({ mensaje })
+
+
+    } catch (e) {
+        console.log(e);
+        // mensaje = e
+        res.status(404).send('todo ok')
+    }
+})
 
 
 

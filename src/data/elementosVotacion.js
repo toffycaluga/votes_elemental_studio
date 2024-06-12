@@ -48,6 +48,13 @@ export const elementosVotacion = [
         project_type_id: 2
     },
     {
+        id: 'Cblanco',
+        name: 'Blancos',
+        sector: 'comunal',
+        periodo,
+        project_type_id: 2
+    },
+    {
         id: 'S1',
         name: 'Alarmas comunitarias, conectadas con Seguridad Pública',
         sector: 'QUISCO CENTRO',
@@ -188,6 +195,13 @@ export const elementosVotacion = [
         project_type_id: 1
     },
     {
+        id: 'Sblanco',
+        name: 'Blancos',
+        sector: 'comunal',
+        periodo,
+        project_type_id: 1
+    },
+    {
         id: 'J1',
         name: 'Escuela de talentos artisticos',
         sector: 'QUISCO CENTRO / QUISCO SUR / COMUNIDADES AVENIDA ESPAÑA',
@@ -246,6 +260,13 @@ export const elementosVotacion = [
     {
         id: 'Jnulo',
         name: 'Nulos',
+        sector: 'juvenil',
+        periodo,
+        project_type_id: 4
+    },
+    {
+        id: 'Jblanco',
+        name: 'Blancos',
         sector: 'juvenil',
         periodo,
         project_type_id: 4
@@ -332,6 +353,13 @@ export const elementosVotacion = [
     }, {
         id: 'Inulo',
         name: 'Nulos',
+        sector: 'infantil',
+        periodo,
+        project_type_id: 3
+    },
+    {
+        id: 'Iblanco',
+        name: 'Blancos',
         sector: 'infantil',
         periodo,
         project_type_id: 3

@@ -1,5 +1,5 @@
 import express from 'express';
-import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options, delete_vote_count, delete_vote_user, update_mesas } from "../db.js";
+import { create_funcionario, create_mesas, create_project_type, create_sede, create_voting_options, delete_voting_options, delete_vote_count, delete_vote_user, update_mesas } from "../db.js";
 import bcrypt from 'bcrypt'
 import { sedes } from '../src/data/sedes.js';
 import { elementosVotacion } from '../src/data/elementosVotacion.js';
@@ -15,7 +15,21 @@ const router = express.Router()
 
 
 
+router.get('/admin/reset-elementos-votacion/', async (req, res) => {
+    try {
+        // borramos elementos anteriores 
+        await delete_voting_options(2024);
+        for (let i = 0; i < elementosVotacion.length; i++) {
+            await create_voting_options(elementosVotacion[i]);
+        }
 
+        req.flash('mensaje', 'eset de elementos de votacion con exito')
+        res.redirect('/');
+    } catch (e) {
+        req.flash('errrors', e)
+        res.redirect('/');
+    }
+})
 
 
 router.get('/admin/llenar-tablas', async (req, res) => {

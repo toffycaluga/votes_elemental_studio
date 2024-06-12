@@ -131,6 +131,20 @@ export async function create_voting_options(dataProject) {
         console.log(error);
     }
 }
+export async function delete_voting_options(periodo) {
+    const client = await pool.connect();
+    try {
+
+        await client.query({
+            text: 'delete from project_options where periodo=$1',
+            values: [periodo]
+        })
+        client.release()
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export async function get_voting_data(type, periodo) {
     const client = await pool.connect();
@@ -242,12 +256,55 @@ export async function create_voting_user(rut, name, adress, edad, sede, periodo,
         console.log(error);
     }
 }
+export async function get_vote_folio(folio) {
+    const client = await pool.connect()
+    try {
+        const { rows } = await client.query({
+            text: 'select * from vote_user where id=$1',
+            values: [folio]
+        })
+        console.log(rows[0]);
+        client.release()
+        return rows[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function get_vote_folio_periodo(folio, periodo) {
+    const client = await pool.connect()
+    try {
+        const { rows } = await client.query({
+            text: 'select * from vote_user where id=$1 and periodo=$2',
+            values: [folio, periodo]
+        })
+        // console.log(rows[0]);
+        client.release()
+        return rows[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function get_vote_user(rut) {
     const client = await pool.connect();
     try {
         const { rows } = await client.query({
             text: 'select * from vote_user where rut=$1',
             values: [rut]
+        })
+        client.release()
+        return rows[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
+export async function get_vote_user_periodo(rut, periodo) {
+    const client = await pool.connect();
+    try {
+        const { rows } = await client.query({
+            text: 'SELECT * FROM vote_user WHERE rut=$1 AND periodo= $2 ',
+            values: [rut, periodo]
         })
         client.release()
         return rows[0]
@@ -269,6 +326,8 @@ export async function create_funcionario(data) {
         console.log(error);
     }
 }
+
+
 export async function get_funcionarios(username) {
     const client = await pool.connect();
     try {
