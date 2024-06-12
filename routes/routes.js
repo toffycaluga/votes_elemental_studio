@@ -321,7 +321,7 @@ router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
         }
     } catch (e) {
         console.log("error busqueda:", e);
-        res.status(404).send({ error: e.message });
+        res.status(404)
     }
     // console.log(data_contribuyente);
 })
@@ -349,7 +349,7 @@ router.get('/votes-exist/:dato', protected_route, async (req, res) => {
     } catch (e) {
         // console.log(e);
         // mensaje = e
-        res.status(404).send({ error: "no encontrado" })
+        res.status(404)
     }
 })
 
