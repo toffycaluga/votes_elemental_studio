@@ -105,6 +105,18 @@
     const rutInput = document.getElementById("rut");
     rutInput.addEventListener("keyup", function () {
         var rut = rutInput.value.toLowerCase();
+        fetch('/votes-exist/' + rut)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    console.log(data.mensaje);
+                    // alert(data.mensaje)
+                    modalBody.textContent = data.mensaje;
+                    myModal.show();
+                }
+            })
+            .catch(error);
+
         fetch('/contribuyentes/' + rut)
             .then(response => response.json())
             .then(data => {
@@ -119,23 +131,12 @@
             .catch(error);
 
 
-        fetch('/votes-exist/' + rut)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    console.log(data.mensaje);
-                    // alert(data.mensaje)
-                    modalBody.textContent = data.mensaje;
-                    myModal.show();
-                }
-            })
-            .catch(error);
 
     });
 
     const folioInput = document.querySelector('#folio')
     folioInput.addEventListener("keyup", function () {
-        var folio = folioInput.value.toLowerCase();
+        const folio = folioInput.value.toLowerCase();
 
         fetch('/votes-exist/' + folio)
             .then(response => response.json())

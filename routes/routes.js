@@ -311,7 +311,7 @@ router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
             data.apellido_materno = ''
             data.domicilio = data.addres;
             data.edad = formatDate(data.birthdate);
-            console.log(data);
+            // console.log(data);
             res.send(data)
 
         } else {
@@ -321,7 +321,7 @@ router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
         }
     } catch (e) {
         console.log("error busqueda:", e);
-        res.status(404)
+        res.status(404).send('no encontrado')
     }
     // console.log(data_contribuyente);
 })
@@ -332,11 +332,12 @@ router.get('/votes-exist/:dato', protected_route, async (req, res) => {
     try {
         let mensaje
         let data = await get_vote_user_periodo(dato, periodo)
+        console.log(data);
         if (data) {
             const sede = await get_sedes(data.sede_id);
             // console.log(sede);
             mensaje = `rut :${dato} ya hizo proceso de votacion en sede : ${sede.name}`
-            console.log("usuario encontrada");
+            console.log("usuario encontrado");
         } else {
             data = await get_vote_folio_periodo(dato, periodo)
             const sede = await get_sedes(data.sede_id);
@@ -349,7 +350,7 @@ router.get('/votes-exist/:dato', protected_route, async (req, res) => {
     } catch (e) {
         // console.log(e);
         // mensaje = e
-        res.status(404)
+        res.status(404).send('no encontrado')
     }
 })
 
