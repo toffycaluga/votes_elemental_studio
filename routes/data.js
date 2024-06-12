@@ -15,7 +15,15 @@ const router = express.Router()
 
 
 
-
+router.get('/admin/reset-elementos-votacion/', async (req, res) => {
+    try {
+        req.flash('mensaje', 'eset de elementos de votacion con exito')
+        res.redirect('/');
+    } catch (e) {
+        req.flash('errrors', e)
+        res.redirect('/');
+    }
+})
 
 
 router.get('/admin/llenar-tablas', async (req, res) => {
