@@ -131,6 +131,20 @@ export async function create_voting_options(dataProject) {
         console.log(error);
     }
 }
+export async function delete_voting_options(periodo) {
+    const client = await pool.connect();
+    try {
+
+        await client.query({
+            text: 'delete from project_options where periodo=$1',
+            values: [periodo]
+        })
+        client.release()
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export async function get_voting_data(type, periodo) {
     const client = await pool.connect();
