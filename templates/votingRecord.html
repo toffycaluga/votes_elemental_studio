@@ -116,7 +116,7 @@
                     }
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error);
 
 
         fetch('/votes-exist/' + rut)
@@ -129,7 +129,7 @@
                     myModal.show();
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error);
 
     });
 
@@ -147,7 +147,7 @@
                     myModal.show();
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error);
 
     });
 

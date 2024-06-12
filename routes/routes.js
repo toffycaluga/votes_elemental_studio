@@ -301,20 +301,26 @@ router.post('/asignar-mesa', protected_route, async (req, res) => {
 
 router.get('/contribuyentes/:rut', protected_route, async (req, res) => {
     const rut = req.params.rut
-    const data = await get_vote_user(rut)
-    if (data) {
-        data.nombres = data.name
-        data.apellido_paterno = ''
-        data.apellido_materno = ''
-        data.domicilio = data.addres;
-        data.edad = formatDate(data.birthdate);
-        console.log(data);
-        res.send(data)
+    try {
 
-    } else {
-        const data_contribuyente = await get_contribuyentes(rut)
-        res.send(data_contribuyente);
+        const data = await get_vote_user(rut)
 
+        if (data) {
+            data.nombres = data.name
+            data.apellido_paterno = ''
+            data.apellido_materno = ''
+            data.domicilio = data.addres;
+            data.edad = formatDate(data.birthdate);
+            console.log(data);
+            res.send(data)
+
+        } else {
+            const data_contribuyente = await get_contribuyentes(rut)
+            res.status(200).send(data_contribuyente);
+
+        }
+    } catch (e) {
+        console.log("error busqueda:", e);
     }
     // console.log(data_contribuyente);
 })
@@ -340,9 +346,9 @@ router.get('/votes-exist/:dato', protected_route, async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
+        // console.log(e);
         // mensaje = e
-        res.status(404).send('todo ok')
+        res.status(404).send({ mensaje: "no encontrado" })
     }
 })
 
