@@ -119,7 +119,11 @@
                     myModal.show();
                 }
             })
-            .catch(error);
+            .catch(error)
+
+    });
+    rutInput.addEventListener("blur", () => {
+        var rut = rutInput.value.toLowerCase();
 
         fetch('/contribuyentes/' + rut)
             .then(response => response.json())
@@ -134,9 +138,7 @@
             })
             .catch(error);
 
-
-
-    });
+    })
 
     const folioInput = document.querySelector('#folio')
     folioInput.addEventListener("keyup", function () {
@@ -157,7 +159,9 @@
     });
     document.getElementById('miFormulario').addEventListener('submit', function (event) {
         const folio = document.getElementById('folio');
+        const rut = document.getElementById('rut')
         folio.value = folio.value.toUpperCase();
+        rut.value = rut.value.toLowerCase();
     });
 
 
