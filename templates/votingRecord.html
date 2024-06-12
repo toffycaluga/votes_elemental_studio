@@ -136,7 +136,7 @@
 
     const folioInput = document.querySelector('#folio')
     folioInput.addEventListener("keyup", function () {
-        const folio = folioInput.value.toLowerCase();
+        const folio = folioInput.value.toUpperCase();
 
         fetch('/votes-exist/' + folio)
             .then(response => response.json())
@@ -150,6 +150,10 @@
             })
             .catch(error);
 
+    });
+    document.getElementById('miFormulario').addEventListener('submit', function (event) {
+        const folio = document.getElementById('folio');
+        folio.value = folio.value.toUpperCase();
     });
 
 
