@@ -79,21 +79,50 @@
         this.value = value;
     });
 
-    $(document).ready(function () {
-        $("#rut").on("keyup", function () {
-            rut = $(this).val().toLowerCase();
-            $.get('/contribuyentes/' + rut, function (data, status) {
+
+    const rutInput = document.getElementById("rut");
+    rutInput.addEventListener("keyup", function () {
+        var rut = rutInput.value.toLowerCase();
+        fetch('/contribuyentes/' + rut)
+            .then(response => response.json())
+            .then(data => {
                 if (data) {
-
-
-                    $('#name').val(data.nombres + ' ' + data.apellido_paterno + ' ' + data.apellido_materno)
-                    $('#adress').val(data.domicilio)
+                    document.getElementById('name').value = data.nombres + ' ' + data.apellido_paterno + ' ' + data.apellido_materno;
+                    document.getElementById('adress').value = data.domicilio;
                     if (data.edad) {
-                        $('#edad').val(data.birthdate)
+                        document.getElementById('edad').value = data.edad;
                     }
                 }
             })
-        });
+            .catch(error => console.error('Error:', error));
+
+
+        fetch('/votes-exist/' + rut)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    console.log(data.mensaje);
+                    alert(data.mensaje)
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+    });
+
+    const folioInput = document.querySelector('#folio')
+    folioInput.addEventListener("keyup", function () {
+        var folio = folioInput.value.toLowerCase();
+
+        fetch('/votes-exist/' + folio)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    console.log(data.mensaje);
+                    alert(data.mensaje)
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
     });
 
 
