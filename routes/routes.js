@@ -75,8 +75,8 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
 
 
     const usuario_existente = await get_vote_user(rut)
-    console.log(usuario_existente);
     if (usuario_existente) {
+        console.log(usuario_existente);
 
         const sede = await get_sedes(usuario_existente.sede_id);
         if (usuario_existente.periodo == periodo) {

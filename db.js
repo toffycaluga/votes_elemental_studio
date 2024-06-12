@@ -113,10 +113,10 @@ export async function create_voting(dataProject,) {
         })
 
 
+        client.release()
     } catch (error) {
         return 'ya existe la opcion ' + dataProject.tipoProyecto + '-' + dataProject.periodo
     }
-    client.release()
 }
 export async function create_voting_options(dataProject) {
     const client = await pool.connect();
