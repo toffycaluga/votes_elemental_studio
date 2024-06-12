@@ -83,12 +83,12 @@ router.post('/registrar-voto/:sede/:numero_mesa', protected_route, async (req, r
             req.flash('errors', 'usuario rut :' + rut + ' ya hizo proceso de votacion en sede : ' + sede.name)
             return res.redirect('/registrar-voto')
         } else {
-            await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
+            await create_voting_user(rut.toLowerCase(), name, adress, edad, sede_id, periodo, numero_mesa, folio.toUpperCase());
             req.flash('mensaje', 'usuario registrado correctamente')
             return res.redirect('/')
         }
     } else {
-        await create_voting_user(rut, name, adress, edad, sede_id, periodo, numero_mesa, folio);
+        await create_voting_user(rut.toLowerCase(), name, adress, edad, sede_id, periodo, numero_mesa, folio.toUpperCase());
         req.flash('mensaje', 'usuario registrado correctamente')
         return res.redirect('/')
     }
